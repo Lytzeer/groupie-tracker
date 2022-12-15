@@ -47,15 +47,25 @@ type GetLocation struct {
 	} `json:"index"`
 }
 
-type RELATION struct {
+type RELATIONS struct {
 	Index []struct {
-		Id             int `json:"id"`
-		DatesLocations struct {
-			Location string
-			Dates    []string
-		} `json:"datesLocations"`
+		Id             int                 `json:"id"`
+		DatesLocations map[string][]string `json:"datesLocations"`
 	} `json:"index"`
 }
+
+type RELATION struct {
+	Id             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+}
+
+// type rlation struct {
+// 	Id              int
+// 	Dates_Locations map[string][]string
+// }
+
+// var Relations map[string]interface{}
+// var Relation map[string]rlation
 
 func main() {
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api")
@@ -68,10 +78,10 @@ func main() {
 	responseData, err := ioutil.ReadAll(response.Body)
 	Ap := API{}
 	json.Unmarshal(responseData, &Ap)
-	fmt.Println(Ap.Artists)
-	fmt.Println(Ap.Locations)
-	fmt.Println(Ap.Dates)
-	fmt.Println(Ap.Relations)
+	// fmt.Println(Ap.Artists)
+	// fmt.Println(Ap.Locations)
+	// fmt.Println(Ap.Dates)
+	// fmt.Println(Ap.Relations)
 	//response2, err := http.Get(Ap.Artists)
 	//responseData2, err := ioutil.ReadAll(response2.Body)
 	//Ar := []ARTIST{}
@@ -99,19 +109,40 @@ func main() {
 	responseData3, err := ioutil.ReadAll(response3.Body)
 	Da := DATE{}
 	json.Unmarshal(responseData3, &Da)
-	for _, dates := range Da.Index {
-		fmt.Println(dates.Dates)
-		fmt.Println()
-	}
+	// for _, dates := range Da.Index {
+	// fmt.Println(dates.Dates)
+	// fmt.Println()
+	// }
 
 	response4, err := http.Get(Ap.Locations)
 	fmt.Println(Ap.Dates)
 	responseData4, err := ioutil.ReadAll(response4.Body)
 	GL := GetLocation{}
 	json.Unmarshal(responseData4, &GL)
-	fmt.Println(GL)
+	// fmt.Println(GL)
 	// for _, G := range GL.Index {
 	// 	//fmt.Println(G.DatesLocations)
 	// 	//fmt.Println()
 	// }
+
+	response5, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+	responseData5, err := ioutil.ReadAll(response5.Body)
+	RL := RELATIONS{}
+	err = json.Unmarshal(responseData5, &RL)
+	if err != nil {
+		panic(err)
+	}
+
+	for index, dates := range RL.Index {
+		fmt.Println("ville :", index, " | dates : ")
+		for _, date := range dates.DatesLocations {
+			fmt.Println("  -", date)
+		}
+		for _, city := range dates.DatesLocations {
+			fmt.Println(city)
+			fmt.Println(RL.Index[0])
+		}
+	}
+	// fmt.Println(RL.DatesLocations)
+
 }
