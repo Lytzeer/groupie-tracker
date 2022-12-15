@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 )
@@ -16,9 +15,36 @@ type API struct {
 	Relations string `json:"relation"`
 }
 
+type ARTIST struct {
+	Id            int      `json:"id"`
+	Image         string   `json:"image"`
+	Name          string   `json:"name"`
+	Members       []string `json:"members"`
+	Creation_date int      `json:"creationDate"`
+	First_ablbum  string   `json:"firstAlbum"`
+	Locations     string   `json:"locations"`
+	Concert_dates string   `json:"concertDates"`
+	Rlations      string   `json:"relations"`
+}
+
+type LOCATION struct {
+	Id        int      `json:"id"`
+	Locations []string `json:"locations"`
+	Dates     string   `json:"dates"`
+}
+
+type DATE struct {
+	Id    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+type RELATION struct {
+	Id             int         `json:"id"`
+	Dates_location interface{} `json:"datesLocations"`
+}
+
 func main() {
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api")
-	f, err := os.Create("out.txt")
 
 	if err != nil {
 		fmt.Print(err.Error())
@@ -26,18 +52,30 @@ func main() {
 	}
 
 	responseData, err := ioutil.ReadAll(response.Body)
-	f.WriteString(string(responseData))
-	if err != nil {
-		log.Fatal(err)
-	}
 	Ap := API{}
-	jsonErr := json.Unmarshal(responseData, &Ap)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
-	}
-	fmt.Println(string(responseData))
+	json.Unmarshal(responseData, &Ap)
 	fmt.Println(Ap.Artists)
 	fmt.Println(Ap.Locations)
 	fmt.Println(Ap.Dates)
 	fmt.Println(Ap.Relations)
+	//response2, err := http.Get(Ap.Artists)
+	//responseData2, err := ioutil.ReadAll(response2.Body)
+	//Ar := []ARTIST{}
+	//json.Unmarshal(responseData2, &Ar)
+	//
+	//for _, artist := range Ar {
+	//	fmt.Println(artist.Rlations)
+	//	fmt.Println()
+	//}
+	//
+	response3, err := http.Get(Ap.Dates)
+	fmt.Println(Ap.Dates)
+	responseData3, err := ioutil.ReadAll(response3.Body)
+	Da := []DATE{}
+	json.Unmarshal(responseData3, &Da)
+	fmt.Println(Da)
+	for _, dates := range Da {
+		fmt.Println(dates.Dates)
+		fmt.Println()
+	}
 }
