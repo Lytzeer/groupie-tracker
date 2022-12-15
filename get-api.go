@@ -40,6 +40,13 @@ type DATE struct {
 	} `json:"index"`
 }
 
+type GetLocation struct {
+	Index []struct {
+		Id        int      `json:"id"`
+		Locations []string `json:"locations"`
+	} `json:"index"`
+}
+
 type RELATION struct {
 	Id             int         `json:"id"`
 	Dates_location interface{} `json:"datesLocations"`
@@ -79,4 +86,15 @@ func main() {
 		fmt.Println(dates.Dates)
 		fmt.Println()
 	}
-}	
+
+	response4, err := http.Get(Ap.Locations)
+	fmt.Println(Ap.Dates)
+	responseData4, err := ioutil.ReadAll(response4.Body)
+	GL := GetLocation{}
+	json.Unmarshal(responseData4, &GL)
+	fmt.Println(GL)
+	// for _, G := range GL.Index {
+	// 	//fmt.Println(G.DatesLocations)
+	// 	//fmt.Println()
+	// }
+}
