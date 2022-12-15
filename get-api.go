@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+var api DATAS
+
 type API struct {
 	Artists   string `json:"artists"`
 	Locations string `json:"locations"`
@@ -57,6 +59,28 @@ type RELATION struct {
 	} `json:"index"`
 }
 
+var Ap API
+
+func SetData() {
+	/*SET artists*/
+	responseArtists, _ := http.Get(Ap.Artists)
+	responseDataArtists, _ := ioutil.ReadAll(responseArtists.Body)
+	Ar := []ARTIST{}
+	json.Unmarshal(responseDataArtists, &Ar)
+
+	/*SET Dates*/
+	responseDate, _ := http.Get(Ap.Dates)
+	responseDataDate, _ := ioutil.ReadAll(responseDate.Body)
+	Da := []DATE{}
+	json.Unmarshal(responseDataDate, &Da)
+
+	/*SET Location*/
+	responseLocation, _ := http.Get(Ap.Locations)
+	responseDataLocation, _ := ioutil.ReadAll(responseLocation.Body)
+	GL := []GetLocation{}
+	json.Unmarshal(responseDataLocation, &GL)
+}
+
 func main() {
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api")
 
@@ -66,22 +90,22 @@ func main() {
 	}
 
 	responseData, err := ioutil.ReadAll(response.Body)
-	Ap := API{}
 	json.Unmarshal(responseData, &Ap)
-	fmt.Println(Ap.Artists)
-	fmt.Println(Ap.Locations)
-	fmt.Println(Ap.Dates)
-	fmt.Println(Ap.Relations)
-	//response2, err := http.Get(Ap.Artists)
-	//responseData2, err := ioutil.ReadAll(response2.Body)
-	//Ar := []ARTIST{}
-	//json.Unmarshal(responseData2, &Ar)
-	//
-	//for _, artist := range Ar {
-	//	fmt.Println(artist.Rlations)
-	//	fmt.Println()
-	//}
-	//
+	SetData()
+	// fmt.Println(Ap.Artists)
+	// fmt.Println(Ap.Locations)
+	// fmt.Println(Ap.Dates)
+	// fmt.Println(Ap.Relations)
+	// response2, err := http.Get(Ap.Artists)
+	// responseData2, err := ioutil.ReadAll(response2.Body)
+	// Ar := []ARTIST{}
+	// json.Unmarshal(responseData2, &Ar)
+
+	// for _, artist := range Ar {
+	// 	fmt.Println(artist.Rlations)
+	// 	fmt.Println()
+	// }
+
 	// response3, err := http.Get(Ap.Dates)
 	// fmt.Println(Ap.Dates)
 	// responseData3, err := ioutil.ReadAll(response3.Body)
@@ -94,24 +118,57 @@ func main() {
 	// for _, dates := range Re.Index {
 	// 	fmt.Println(dates.Dates_location)
 	// 	fmt.Println()
-	response3, err := http.Get(Ap.Dates)
-	fmt.Println(Ap.Dates)
-	responseData3, err := ioutil.ReadAll(response3.Body)
-	Da := DATE{}
-	json.Unmarshal(responseData3, &Da)
-	for _, dates := range Da.Index {
-		fmt.Println(dates.Dates)
-		fmt.Println()
-	}
-
-	response4, err := http.Get(Ap.Locations)
-	fmt.Println(Ap.Dates)
-	responseData4, err := ioutil.ReadAll(response4.Body)
-	GL := GetLocation{}
-	json.Unmarshal(responseData4, &GL)
-	fmt.Println(GL)
-	// for _, G := range GL.Index {
-	// 	//fmt.Println(G.DatesLocations)
-	// 	//fmt.Println()
+	// response3, err := http.Get(Ap.Dates)
+	// fmt.Println(Ap.Dates)
+	// responseData3, err := ioutil.ReadAll(response3.Body)
+	// Da := DATE{}
+	// json.Unmarshal(responseData3, &Da)
+	// for _, dates := range Da.Index {
+	// 	fmt.Println(dates.Dates)
+	// 	fmt.Println()
 	// }
+
+	// response4, err := http.Get(Ap.Locations)
+	// fmt.Println(Ap.Dates)
+	// responseData4, err := ioutil.ReadAll(response4.Body)
+	// GL := GetLocation{}
+	// json.Unmarshal(responseData4, &GL)
+	// //fmt.Println(GL)
+	// for _, G := range GL.Index {
+	// 	fmt.Println(G.Locations)
+	// 	fmt.Println()
+	// }
+}
+
+type DATAS struct {
+	Id            int
+	Locations     []string
+	Dates         string
+	IdA           int
+	Image         string
+	Name          string
+	Members       []string
+	Creation_date int
+	First_ablbum  string
+	LocationsA    string
+	Concert_dates string
+	Rlations      string
+	IdL           int
+	LocationsL    []string
+	DatesL        string
+	Index         []struct {
+		Id    int
+		Dates []string
+	}
+	IndexM []struct {
+		Id        int
+		Locations []string
+	}
+	IndexJ []struct {
+		Id             int
+		DatesLocations struct {
+			Location string
+			Dates    []string
+		}
+	}
 }
