@@ -41,8 +41,13 @@ type DATE struct {
 }
 
 type RELATION struct {
-	Id             int         `json:"id"`
-	Dates_location interface{} `json:"datesLocations"`
+	Index []struct {
+		Id              int `json:"id"`
+		DatesLocations struct {
+			Location string
+			Dates    []string
+		} `json:"datesLocations"`
+	} `json:"index"`
 }
 
 func main() {
@@ -70,13 +75,23 @@ func main() {
 	//	fmt.Println()
 	//}
 	//
-	response3, err := http.Get(Ap.Dates)
-	fmt.Println(Ap.Dates)
-	responseData3, err := ioutil.ReadAll(response3.Body)
-	Da := DATE{}
-	json.Unmarshal(responseData3, &Da)
-	for _, dates := range Da.Index {
-		fmt.Println(dates.Dates)
-		fmt.Println()
-	}
-}	
+	// response3, err := http.Get(Ap.Dates)
+	// fmt.Println(Ap.Dates)
+	// responseData3, err := ioutil.ReadAll(response3.Body)
+	// Da := DATE{}
+	// json.Unmarshal(responseData3, &Da)
+	// for _, dates := range Da.Index {
+	// 	fmt.Println(dates.Dates)
+	// 	fmt.Println()
+	// }
+	response4, err := http.Get(Ap.Relations)
+	fmt.Println(Ap.Relations)
+	responseData4, err := ioutil.ReadAll(response4.Body)
+	Re := RELATION{}
+	json.Unmarshal(responseData4, &Re)
+	fmt.Println(Re)
+	// for _, dates := range Re.Index {
+	// 	fmt.Println(dates.Dates_location)
+	// 	fmt.Println()
+	// }
+}
