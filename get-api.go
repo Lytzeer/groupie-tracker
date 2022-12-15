@@ -34,8 +34,10 @@ type LOCATION struct {
 }
 
 type DATE struct {
-	Id    int      `json:"id"`
-	Dates []string `json:"dates"`
+	Index []struct {
+		Id    int      `json:"id"`
+		Dates []string `json:"dates"`
+	} `json:"index"`
 }
 
 type RELATION struct {
@@ -71,11 +73,10 @@ func main() {
 	response3, err := http.Get(Ap.Dates)
 	fmt.Println(Ap.Dates)
 	responseData3, err := ioutil.ReadAll(response3.Body)
-	Da := []DATE{}
+	Da := DATE{}
 	json.Unmarshal(responseData3, &Da)
-	fmt.Println(Da)
-	for _, dates := range Da {
+	for _, dates := range Da.Index {
 		fmt.Println(dates.Dates)
 		fmt.Println()
 	}
-}
+}	
