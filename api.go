@@ -1,4 +1,4 @@
-package main
+package groupie
 
 import (
 	"encoding/json"
@@ -66,7 +66,7 @@ var Ap API
 
 var Donnees DATAS
 
-func main() {
+func GetDatas() (DATE, []ARTIST, GetLocation) {
 	response, _ := http.Get("https://groupietrackers.herokuapp.com/api")
 
 	responseData, _ := ioutil.ReadAll(response.Body)
@@ -100,10 +100,10 @@ func main() {
 	json.Unmarshal(responseDataLocation, &GL)
 	//fmt.Println(GL)
 
-	SetData(Da, Ar, GL)
+	return Da, Ar, GL
 }
 
-func SetData(d DATE, a []ARTIST, l GetLocation) {
+func SetData(d DATE, a []ARTIST, l GetLocation, donnes DATAS) {
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])
