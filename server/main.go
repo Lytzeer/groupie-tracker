@@ -11,6 +11,7 @@ var donnermoi gp.DATAS
 var Da gp.DATE
 var Ar []gp.ARTIST
 var Gl gp.GetLocation
+var Re gp.RELATION
 
 func main() {
 	fmt.Println("Starting server on port 8080")
@@ -22,8 +23,8 @@ func main() {
 }
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
-	Da, Ar, Gl = gp.GetDatas()
-	gp.SetData(Da, Ar, Gl, donnermoi)
+	Da, Ar, Gl, Re = gp.GetDatas()
+	gp.SetData(Da, Ar, Gl, Re, donnermoi)
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/index.html"))
 	tmpl.Execute(w, donnermoi)

@@ -16,11 +16,8 @@ type GetLocation struct {
 
 type RELATION struct {
 	Index []struct {
-		Id             int `json:"id"`
-		DatesLocations struct {
-			Location string
-			Dates    []string
-		} `json:"datesLocations"`
+		Id             int                 `json:"id"`
+		DatesLocations map[string][]string `json:"datesLocations"`
 	} `json:"index"`
 }
 
@@ -60,13 +57,17 @@ type DATAS struct {
 		Id        int      "json:\"id\""
 		Locations []string "json:\"locations\""
 	}
+	Relation []struct {
+		Id             int                 "json:\"id\""
+		DatesLocations map[string][]string `json:"datesLocations"`
+	}
 }
 
 var Ap API
 
 var Donnees DATAS
 
-func GetDatas() (DATE, []ARTIST, GetLocation) {
+func GetDatas() (DATE, []ARTIST, GetLocation, RELATION) {
 	response, _ := http.Get("https://groupietrackers.herokuapp.com/api")
 
 	responseData, _ := ioutil.ReadAll(response.Body)
@@ -100,15 +101,21 @@ func GetDatas() (DATE, []ARTIST, GetLocation) {
 	json.Unmarshal(responseDataLocation, &GL)
 	//fmt.Println(GL)
 
-	return Da, Ar, GL
+	responseRelation, _ := http.Get(Ap.Relations)
+	responseDataRelation, _ := ioutil.ReadAll(responseRelation.Body)
+	Re := RELATION{}
+	json.Unmarshal(responseDataRelation, &Re)
+
+	return Da, Ar, GL, Re
 }
 
-func SetData(d DATE, a []ARTIST, l GetLocation, donnes DATAS) {
+func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS) {
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])
 	}
 	Donnees.Location = l.Index
+	Donnees.Relation = relation.Index
 
 	fmt.Println(Donnees)
 }
