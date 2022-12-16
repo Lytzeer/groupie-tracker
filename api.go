@@ -118,4 +118,5 @@ func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS)
 	Donnees.Relation = relation.Index
 
 	fmt.Println(Donnees)
+
 }
