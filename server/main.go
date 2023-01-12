@@ -3,16 +3,17 @@ package main
 import (
 	"fmt"
 	gp "groupie"
+	gpd "groupie/datas"
 	"html/template"
 	"net/http"
 	"strconv"
 )
 
 var donnermoi gp.DATAS
-var Da gp.DATE
-var Ar []gp.ARTIST
-var Gl gp.GetLocation
-var Re gp.RELATION
+var Da gpd.DATE
+var Ar []gpd.ARTIST
+var Gl gpd.GetLocation
+var Re gpd.RELATION
 
 func main() {
 	Da, Ar, Gl, Re = gp.GetDatas()

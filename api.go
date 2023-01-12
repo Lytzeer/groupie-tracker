@@ -3,23 +3,14 @@ package groupie
 import (
 	"encoding/json"
 	"fmt"
+	gpd "groupie/datas"
 	"io/ioutil"
 	"net/http"
 )
 
-type GetLocation struct {
-	Index []struct {
-		Id        int      `json:"id"`
-		Locations []string `json:"locations"`
-	} `json:"index"`
-}
 
-type RELATION struct {
-	Index []struct {
-		Id             int                 `json:"id"`
-		DatesLocations map[string][]string `json:"datesLocations"`
-	} `json:"index"`
-}
+
+
 
 type API struct {
 	Artists   string `json:"artists"`
@@ -28,31 +19,12 @@ type API struct {
 	Relations string `json:"relation"`
 }
 
-type DATE struct {
-	Index []struct {
-		Id    int      `json:"id"`
-		Dates []string `json:"dates"`
-	} `json:"index"`
-}
-
-type ARTIST struct {
-	Id            int      `json:"id"`
-	Image         string   `json:"image"`
-	Name          string   `json:"name"`
-	Members       []string `json:"members"`
-	Creation_date int      `json:"creationDate"`
-	First_ablbum  string   `json:"firstAlbum"`
-	Locations     string   `json:"locations"`
-	Concert_dates string   `json:"concertDates"`
-	Rlations      string   `json:"relations"`
-}
-
 type DATAS struct {
 	Date []struct {
 		Id    int      "json:\"id\""
 		Dates []string "json:\"dates\""
 	}
-	Artist   []ARTIST
+	Artist   []gpd.ARTIST
 	Location []struct {
 		Id        int      "json:\"id\""
 		Locations []string "json:\"locations\""
@@ -74,7 +46,7 @@ var Ap API
 
 var Donnees DATAS
 
-func GetDatas() (DATE, []ARTIST, GetLocation, RELATION) {
+func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 	response, _ := http.Get("https://groupietrackers.herokuapp.com/api")
 
 	responseData, _ := ioutil.ReadAll(response.Body)
@@ -88,7 +60,7 @@ func GetDatas() (DATE, []ARTIST, GetLocation, RELATION) {
 	responseDates, _ := http.Get(Ap.Dates)
 	fmt.Println(Ap.Dates)
 	responseDataDates, _ := ioutil.ReadAll(responseDates.Body)
-	Da := DATE{}
+	Da := gpd.DATE{}
 	json.Unmarshal(responseDataDates, &Da)
 
 	//fmt.Println(Da)
@@ -96,7 +68,7 @@ func GetDatas() (DATE, []ARTIST, GetLocation, RELATION) {
 	/*SET artists*/
 	responseArtists, _ := http.Get(Ap.Artists)
 	responseDataArtists, _ := ioutil.ReadAll(responseArtists.Body)
-	Ar := []ARTIST{}
+	Ar := []gpd.ARTIST{}
 	json.Unmarshal(responseDataArtists, &Ar)
 
 	//fmt.Println(Ar)
@@ -104,19 +76,19 @@ func GetDatas() (DATE, []ARTIST, GetLocation, RELATION) {
 	/*SET Location*/
 	responseLocation, _ := http.Get(Ap.Locations)
 	responseDataLocation, _ := ioutil.ReadAll(responseLocation.Body)
-	GL := GetLocation{}
+	GL := gpd.GetLocation{}
 	json.Unmarshal(responseDataLocation, &GL)
 	//fmt.Println(GL)
 
 	responseRelation, _ := http.Get(Ap.Relations)
 	responseDataRelation, _ := ioutil.ReadAll(responseRelation.Body)
-	Re := RELATION{}
+	Re := gpd.RELATION{}
 	json.Unmarshal(responseDataRelation, &Re)
 
 	return Da, Ar, GL, Re
 }
 
-func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS) DATAS {
+func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION, donnes DATAS) DATAS {
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])
@@ -127,15 +99,3 @@ func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS)
 	return Donnees
 
 }
-
-// func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS) {
-// 	Donnees.Date = d.Index
-// 	for i := 0; i < (len(a)); i++ {
-// 		Donnees.Artist = append(Donnees.Artist, a[i])
-// 	}
-// 	Donnees.Location = l.Index
-// 	Donnees.Relation = relation.Index
-
-// 	fmt.Println(Donnees)
-
-// }
