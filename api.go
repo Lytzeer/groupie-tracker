@@ -109,7 +109,7 @@ func GetDatas() (DATE, []ARTIST, GetLocation, RELATION) {
 	return Da, Ar, GL, Re
 }
 
-func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS) {
+func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS) DATAS {
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])
@@ -117,6 +117,6 @@ func SetData(d DATE, a []ARTIST, l GetLocation, relation RELATION, donnes DATAS)
 	Donnees.Location = l.Index
 	Donnees.Relation = relation.Index
 
-	fmt.Println(Donnees)
+	return Donnees
 
 }

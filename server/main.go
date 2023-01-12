@@ -24,9 +24,11 @@ func main() {
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
 	Da, Ar, Gl, Re = gp.GetDatas()
-	gp.SetData(Da, Ar, Gl, Re, donnermoi)
+	donnermoi := gp.SetData(Da, Ar, Gl, Re, donnermoi)
+	// gp.SetData(Da, Ar, Gl, Re, donnermoi)
 	var tmpl *template.Template
-	tmpl = template.Must(template.ParseFiles("./static/index.html"))
+	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	tmpl.Execute(w, donnermoi)
+	fmt.Println(donnermoi)
 	return
 }
