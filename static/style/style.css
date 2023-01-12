@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: "ModernWarfare";
+    src: url(/static/fonts/ModernWarfare.ttf);
+}
+
+*{
+    font-family: 'ModernWarfare', sans-serif;
+}
+
+body{
+    background-color: black;
+}
+
+h1{
+    color: #E1E1E1;
+}
+
+.text{
+    color: #E1E1E1;
+}
+
+a:link{
+    color: #E1E1E1;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited{
+    color: #E1E1E1;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #E1E1E1;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:active{
+    color: #E1E1E1;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.middle_letter{
+    color: #74BC2A;
+}
+
+.footer{
+    color: #E1E1E1;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'ModernWarfare',sans-serif;
+}
+
+.footer_b{
+    color: #E1E1E1;
+    position: static;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'ModernWarfare',sans-serif;
+}
