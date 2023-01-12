@@ -14,6 +14,8 @@ var Gl gp.GetLocation
 var Re gp.RELATION
 
 func main() {
+	Da, Ar, Gl, Re = gp.GetDatas()
+	donnermoi = gp.SetData(Da, Ar, Gl, Re, donnermoi)
 	fmt.Println("Starting server on port 8080")
 	http.HandleFunc("/", HandleIndex)
 	fs := http.FileServer(http.Dir("./static"))
@@ -23,9 +25,9 @@ func main() {
 }
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
-	Da, Ar, Gl, Re = gp.GetDatas()
+
 	//gp.SetData(Da, Ar, Gl, Re, donnermoi)
-	donnermoi := gp.SetData(Da, Ar, Gl, Re, donnermoi)
+
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	tmpl.Execute(w, donnermoi)
