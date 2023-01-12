@@ -8,31 +8,11 @@ import (
 	"net/http"
 )
 
-
-
-
-
 type API struct {
 	Artists   string `json:"artists"`
 	Locations string `json:"locations"`
 	Dates     string `json:"dates"`
 	Relations string `json:"relation"`
-}
-
-type DATAS struct {
-	Date []struct {
-		Id    int      "json:\"id\""
-		Dates []string "json:\"dates\""
-	}
-	Artist   []gpd.ARTIST
-	Location []struct {
-		Id        int      "json:\"id\""
-		Locations []string "json:\"locations\""
-	}
-	Relation []struct {
-		Id             int                 "json:\"id\""
-		DatesLocations map[string][]string `json:"datesLocations"`
-	}
 }
 
 type ArtistInfos struct {
@@ -44,7 +24,7 @@ type ArtistInfos struct {
 
 var Ap API
 
-var Donnees DATAS
+var Donnees gpd.DATAS
 
 func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 	response, _ := http.Get("https://groupietrackers.herokuapp.com/api")
@@ -88,7 +68,7 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 	return Da, Ar, GL, Re
 }
 
-func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION, donnes DATAS) DATAS {
+func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION, donnes gpd.DATAS) gpd.DATAS {
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])

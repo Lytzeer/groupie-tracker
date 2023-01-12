@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-var donnermoi gp.DATAS
+var donnermoi gpd.DATAS
 var Da gpd.DATE
 var Ar []gpd.ARTIST
 var Gl gpd.GetLocation
