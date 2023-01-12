@@ -63,6 +63,13 @@ type DATAS struct {
 	}
 }
 
+type ArtistInfos struct {
+	Artist   interface{}
+	Location interface{}
+	Date     interface{}
+	Relation interface{}
+}
+
 var Ap API
 
 var Donnees DATAS

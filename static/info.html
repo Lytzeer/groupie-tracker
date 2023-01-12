@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/dist/style.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/static/pics/fav_icon.png" type="image/png">
+    <title>Information</title>
+</head>
+
+<body>
+    <div class="text">
+
+        {{.Artist.Name}}
+
+    </div>
+
+    <div class="text">
+
+        ({{.Artist.Creation_date}})
+
+    </div>
+    <br>
+
+    <div class="text">
+        <img class="infoDiv" id="artistInfoImg" src="{{.Artist.Image}}" alt="Artist Image" width="300px" height="300px">
+    </div>
+    <br>
+
+    <div class="total">
+
+        <div class="text" span>
+            <h3 class="text"><i>Members</i></h3>
+
+            {{range .Artist.Members}}
+            <ul class="text">{{.}}</ul>
+            {{end}}
+
+        </div>
+
+        <div class="Information" span>
+
+            <p class="text"><i>First album release date</i></p>
+            <p class="text">{{.Artist.First_ablbum}}</p>
+        </div>
+
+        <div class="Information" id="locanddate" span>
+
+            <p class="text" class="sameln"><i>Location</i></p>
+
+            {{range.Location.Locations}}
+            <ul class="text"> {{.}} </ul>
+            {{end}}
+
+        </div>
+
+
+        <div class="Information" span>
+
+            <p class="text"><i>Dates</i></p>
+            {{range .Date.Dates}}
+            <ol class="list">
+
+
+                <div class="dropdown-content">
+                    <a href="#">{{.}}</a>
+                </div>
+                    
+            </ol>
+            {{end}}
+        </div>
+
+    </div>
+
+</body>
+
+</html>
