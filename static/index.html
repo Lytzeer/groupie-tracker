@@ -7,8 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <p>
-        {{ .Artist }} 
-    </p>
+
+    {{ range .Artist }}
+    <p>{{.Image}}</p>
+    <p>{{.Id}}</p>
+    <p>{{.Name}}</p>
+    {{end}}
 </body>
 </html>
