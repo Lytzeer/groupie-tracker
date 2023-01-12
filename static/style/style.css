@@ -61,6 +61,10 @@ a:active{
     font-family: 'ModernWarfare',sans-serif;
 }
 
+.image{
+    align-items: center;
+}
+
 .footer_b{
     color: #E1E1E1;
     position: static;

@@ -570,12 +570,12 @@ video {
   gap: 2rem;
 }
 
-.rounded-2xl {
-  border-radius: 1rem;
+.self-center {
+  align-self: center;
 }
 
-.border {
-  border-width: 1px;
+.rounded-2xl {
+  border-radius: 1rem;
 }
 
 .border-2 {
@@ -585,6 +585,11 @@ video {
 .border-mwg {
   --tw-border-opacity: 1;
   border-color: rgb(116 188 42 / var(--tw-border-opacity));
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
 }
 
 .text-center {
@@ -609,6 +614,11 @@ video {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-mwg {
+  --tw-text-opacity: 1;
+  color: rgb(116 188 42 / var(--tw-text-opacity));
 }
 
 @font-face {
@@ -670,6 +680,10 @@ a:active{
   padding: 1rem;
   text-align: center;
   font-family: 'ModernWarfare',sans-serif;
+}
+
+.image{
+  align-items: center;
 }
 
 .footer_b{
