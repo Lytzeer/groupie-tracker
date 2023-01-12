@@ -50,19 +50,18 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 	donnerartist := gp.ArtistInfos{}
 	donnerartist.Artist = art
 	donnerartist.Location = loc
-	donnerartist.Date = dat
 	donnerartist.Relation = rel
 
-	fmt.Println(loc)
-	fmt.Println(art)
-	fmt.Println(dat)
-	fmt.Println(rel)
-	fmt.Println(donnerartist)
-	//gp.SetData(Da, Ar, Gl, Re, donnermoi)
+	for i := 0; i < len(dat.Dates); i++ {
+		if string(dat.Dates[i][0]) == "*" {
+			dat.Dates[i] = dat.Dates[i][1:]
+		}
+	}
+
+	donnerartist.Date = dat
 
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/info.html"))
 	tmpl.Execute(w, donnerartist)
-	// fmt.Println(donnermoi)
 	return
 }
