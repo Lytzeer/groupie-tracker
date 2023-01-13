@@ -2,7 +2,6 @@ package groupie
 
 import (
 	"encoding/json"
-	"fmt"
 	gpd "groupie/datas"
 	"io/ioutil"
 	"net/http"
@@ -17,19 +16,12 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 
 	responseData, _ := ioutil.ReadAll(response.Body)
 	json.Unmarshal(responseData, &Ap)
-	fmt.Println(Ap.Artists)
-	fmt.Println(Ap.Locations)
-	fmt.Println(Ap.Dates)
-	fmt.Println(Ap.Relations)
 
 	/*SET Dates*/
 	responseDates, _ := http.Get(Ap.Dates)
-	fmt.Println(Ap.Dates)
 	responseDataDates, _ := ioutil.ReadAll(responseDates.Body)
 	Da := gpd.DATE{}
 	json.Unmarshal(responseDataDates, &Da)
-
-	//fmt.Println(Da)
 
 	/*SET artists*/
 	responseArtists, _ := http.Get(Ap.Artists)
@@ -37,14 +29,11 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 	Ar := []gpd.ARTIST{}
 	json.Unmarshal(responseDataArtists, &Ar)
 
-	//fmt.Println(Ar)
-
 	/*SET Location*/
 	responseLocation, _ := http.Get(Ap.Locations)
 	responseDataLocation, _ := ioutil.ReadAll(responseLocation.Body)
 	GL := gpd.GetLocation{}
 	json.Unmarshal(responseDataLocation, &GL)
-	//fmt.Println(GL)
 
 	responseRelation, _ := http.Get(Ap.Relations)
 	responseDataRelation, _ := ioutil.ReadAll(responseRelation.Body)
@@ -63,18 +52,15 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 	Donnees.Relation = relation.Index
 
 	All := make([][][]string, 52)
-	//fmt.Println(All)
-
 	for i := 0; i < len(Donnees.Location); i++ {
 		All[i] = make([][]string, len(Donnees.Relation[i].DatesLocations))
-		for j := 0; j < len(All[i]); j++ {
-			All[i][j] = make([]string, 2)
-			for loc, dat := range Donnees.Relation[i].DatesLocations {
-				All[i][j] = append(All[i][j], loc)
-				for _, dates := range dat {
-					All[i][j] = append(All[i][j], " / "+dates)
-				}
+		cpt := 0
+		for loc, dates := range Donnees.Relation[i].DatesLocations {
+			All[i][cpt] = append(All[i][cpt], loc)
+			for j := 0; j < len(dates); j++ {
+				All[i][cpt] = append(All[i][cpt], dates[j])
 			}
+			cpt++
 		}
 	}
 

@@ -28,13 +28,9 @@ func main() {
 }
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
-
-	//gp.SetData(Da, Ar, Gl, Re, donnermoi)
-
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	tmpl.Execute(w, donnermoi)
-	fmt.Println(donnermoi)
 	return
 }
 func HandleInfos(w http.ResponseWriter, r *http.Request) {
@@ -46,14 +42,14 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 
 	loc := donnermoi.Location[Iid]
 	art := donnermoi.Artist[Iid]
-	//rel := donnermoi.Relation[Iid]
 	dat := donnermoi.Date[Iid]
-	a:= donnermoi.Locs[Iid]
+	a := donnermoi.Locs[Iid]
 	donnerartist := gpd.ArtistInfos{}
 	donnerartist.Artist = art
 	donnerartist.Location = loc
-	donnerartist.All= a
-	//donnerartist.Relation = rel
+	donnerartist.All = a
+
+	fmt.Println(a)
 
 	for i := 0; i < len(dat.Dates); i++ {
 		if string(dat.Dates[i][0]) == "*" {
