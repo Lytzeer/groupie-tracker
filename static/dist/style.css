@@ -645,13 +645,13 @@ video {
 }
 
 @font-face {
-  font-family: "ModernWarfare";
+  font-family: "GhostClan";
 
-  src: url(/static/fonts/ModernWarfare.ttf);
+  src: url(/static/fonts/ghostclan.ttf);
 }
 
 *{
-  font-family: 'ModernWarfare', sans-serif;
+  font-family: 'GhostClan', sans-serif;
 }
 
 body{

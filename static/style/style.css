@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 @font-face {
-    font-family: "ModernWarfare";
-    src: url(/static/fonts/ModernWarfare.ttf);
+    font-family: "GhostClan";
+    src: url(/static/fonts/ghostclan.ttf);
 }
 
 *{
-    font-family: 'ModernWarfare', sans-serif;
+    font-family: 'GhostClan', sans-serif;
 }
 
 body{
