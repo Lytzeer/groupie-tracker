@@ -2,6 +2,7 @@ package groupie
 
 import (
 	"encoding/json"
+	"fmt"
 	gpd "groupie/datas"
 	"io/ioutil"
 	"net/http"
@@ -60,8 +61,7 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 			for j := 0; j < len(dates); j++ {
 				if j == 0 {
 					All[i][cpt] = append(All[i][cpt], " :  "+dates[j])
-				}
-				if j >= 1 {
+				} else if j >= 1 {
 					All[i][cpt] = append(All[i][cpt], " / "+dates[j])
 				} else {
 					All[i][cpt] = append(All[i][cpt], dates[j])
@@ -74,6 +74,10 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 
 	Donnees.Locs = All
 
+	for i := 0; i < (len(Donnees.Artist)); i++ {
+		Donnees.NbMembers = append(Donnees.NbMembers, len(Donnees.Artist[i].Members))
+	}
+	fmt.Println(Donnees.NbMembers)
 	return Donnees
 
 }

@@ -15,5 +15,6 @@ type DATAS struct {
 		DatesLocations map[string][]string `json:"datesLocations"`
 	}
 
-	Locs [][][]string
+	Locs      [][][]string
+	NbMembers []int
 }
