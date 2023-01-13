@@ -10,8 +10,8 @@ type DATAS struct {
 		Id        int      `json:"id"`
 		Locations []string `json:"locations"`
 	}
-	Relation []struct {
-		Id             int                 `json:"id"`
-		DatesLocations map[string][]string `json:"datesLocations"`
-	}
+	// Relation []struct {
+	// 	Id             int                 `json:"id"`
+	// 	DatesLocations map[string][]string `json:"datesLocations"`
+	// }
 }

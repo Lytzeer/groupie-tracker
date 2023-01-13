@@ -2,11 +2,11 @@ package groupie
 
 import (
 	"fmt"
-	gp "groupie"
+	gpd "groupie/datas"
 	"strconv"
 )
 
-func GetAll(d gp.DATAS) {
+func GetAll(d gpd.DATAS) {
 	Names := []string{}
 	Members := []string{}
 	Positions := []string{}

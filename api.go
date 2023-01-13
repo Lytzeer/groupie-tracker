@@ -8,21 +8,11 @@ import (
 	"net/http"
 )
 
-type API struct {
-	Artists   string `json:"artists"`
-	Locations string `json:"locations"`
-	Dates     string `json:"dates"`
-	Relations string `json:"relation"`
-}
 
-type ArtistInfos struct {
-	Artist   interface{}
-	Location interface{}
-	Date     interface{}
-	Relation interface{}
-}
 
-var Ap API
+
+
+var Ap gpd.API
 
 var Donnees gpd.DATAS
 
@@ -74,7 +64,7 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 		Donnees.Artist = append(Donnees.Artist, a[i])
 	}
 	Donnees.Location = l.Index
-	Donnees.Relation = relation.Index
+	//Donnees.Relation = relation.Index
 
 	return Donnees
 

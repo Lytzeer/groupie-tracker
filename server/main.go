@@ -46,12 +46,12 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 
 	loc := donnermoi.Location[Iid]
 	art := donnermoi.Artist[Iid]
-	rel := donnermoi.Relation[Iid]
+	//rel := donnermoi.Relation[Iid]
 	dat := donnermoi.Date[Iid]
-	donnerartist := gp.ArtistInfos{}
+	donnerartist := gpd.ArtistInfos{}
 	donnerartist.Artist = art
 	donnerartist.Location = loc
-	donnerartist.Relation = rel
+	//donnerartist.Relation = rel
 
 	for i := 0; i < len(dat.Dates); i++ {
 		if string(dat.Dates[i][0]) == "*" {
