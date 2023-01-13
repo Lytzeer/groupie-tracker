@@ -8,10 +8,6 @@ import (
 	"net/http"
 )
 
-
-
-
-
 var Ap gpd.API
 
 var Donnees gpd.DATAS
@@ -58,13 +54,31 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 	return Da, Ar, GL, Re
 }
 
-func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION, donnes gpd.DATAS) gpd.DATAS {
+func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION) gpd.DATAS {
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])
 	}
 	Donnees.Location = l.Index
-	//Donnees.Relation = relation.Index
+	Donnees.Relation = relation.Index
+
+	All := make([][][]string, 52)
+	//fmt.Println(All)
+
+	for i := 0; i < len(Donnees.Location); i++ {
+		All[i] = make([][]string, len(Donnees.Relation[i].DatesLocations))
+		for j := 0; j < len(All[i]); j++ {
+			All[i][j] = make([]string, 2)
+			for loc, dat := range Donnees.Relation[i].DatesLocations {
+				All[i][j] = append(All[i][j], loc)
+				for _, dates := range dat {
+					All[i][j] = append(All[i][j], " / "+dates)
+				}
+			}
+		}
+	}
+
+	Donnees.Locs = All
 
 	return Donnees
 

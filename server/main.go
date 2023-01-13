@@ -17,7 +17,7 @@ var Re gpd.RELATION
 
 func main() {
 	Da, Ar, Gl, Re = gp.GetDatas()
-	donnermoi = gp.SetData(Da, Ar, Gl, Re, donnermoi)
+	donnermoi = gp.SetData(Da, Ar, Gl, Re)
 	fmt.Println("Starting server on port 8080")
 	http.HandleFunc("/", HandleIndex)
 	http.HandleFunc("/infos", HandleInfos)
@@ -48,9 +48,11 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 	art := donnermoi.Artist[Iid]
 	//rel := donnermoi.Relation[Iid]
 	dat := donnermoi.Date[Iid]
+	a:= donnermoi.Locs[Iid]
 	donnerartist := gpd.ArtistInfos{}
 	donnerartist.Artist = art
 	donnerartist.Location = loc
+	donnerartist.All= a
 	//donnerartist.Relation = rel
 
 	for i := 0; i < len(dat.Dates); i++ {

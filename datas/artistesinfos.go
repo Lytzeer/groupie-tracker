@@ -5,4 +5,5 @@ type ArtistInfos struct {
 	Location interface{}
 	Date     interface{}
 	Relation interface{}
+	All      [][]string
 }
