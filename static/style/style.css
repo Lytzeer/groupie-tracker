@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
     font-family: "GhostClan";
-    src: url(/static/fonts/ghostclan.ttf);
+    src: url(/static/fonts/Orbitron.ttf);
 }
 
 *{
@@ -76,4 +76,104 @@ a:active{
     padding: 1rem;
     text-align: center;
     font-family: 'GhostClan',sans-serif;
+}
+
+.navbar {
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+  }
+  .navbar li {
+    height: auto;
+    width: 300.8px;
+    float: left;
+    text-align: center;
+    list-style: none;
+    font: normal bold 13px/1em Arial, Verdana, Helvetica;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    box-shadow: #74BC2A;
+  }
+  .navbar a {
+    padding: 18px 0;
+    border-left: 1px solid #ccc9c9;
+    text-decoration: none;
+    color: white;
+    display: block;
+  }
+  .navbar li ul {
+    display: none;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+  .navbar li:hover ul {
+    display: block;
+  }
+  .navbar li ul li {
+    background-color: #74BC2A;
+  }
+  .navbar li ul li a {
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-top: 1px solid pink;
+    border-bottom: 1px solid pink;
+  }
+  .navbar li ul li a:hover {
+    background-color: pink;
+  }
+  /*
+  #wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    height: 30vh; 
+    background-color: #f1f1f1;
+  }
+  
+  /*sep*/
+  /*
+  #wrap input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  #wrap label  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  */
+  #wrap label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: black;
+    font-size: medium;
+  }
+  
+  #wrap input {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: "GhostClan";
+    color: black;
+    font-size: small;
+  }
+  
+  #wrap select {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  
+  /*sep*/
+
+.display-output{
+    color: black;
+    font-size: medium;
 }

@@ -9,15 +9,15 @@
     <title>Artistes</title>
 </head>
 <body>
-    <h1 class="logo text-base mt-1"><a href="/">Groupi<span class="middle_letter">e-T</span>racker</a></h1>
+    <h1 class="logo text-base mt-1"><a href="/">Groupi<span class="middle_letter">e-T</span>racker™</a></h1>
     <h1 class="text text-5xl text-center mt-20">Groupi<span class="middle_letter">e-T</span>racker</h1>
     <div id="wrap">
         <ul class="navbar">
           <li>
-            <a href="#">Filtre</a>
+            <a href="#">Filter</a>
             <ul>
               <li><form action="#">
-                <label for="lang">Nombre de Membres</label>
+                <label for="lang">Number of Memebers</label>
                 <div>                
                   <input type="radio" id="contactChoiceAll" name="contact" value="All">
                   <label for="contactChoiceAll">All</label>
@@ -45,20 +45,20 @@
                 </div>
               </form></li>
               <li><div>
-                <label for="volume">create Année</label>
+                <label for="volume">Year of creation</label>
                 <input id="pi_input" type="range" min="1940" max="2023"  />
-                <p>Année: <output id="value"></output></p>
+                <p class="display-output">Year: <output id="value"></output></p>
               </div>
               </li>
               <li><div>
-                <label for="volume2">album Année</label>
+                <label for="volume2">Album Year</label>
                 <input id="pi_input2" type="range" min="1940" max="2023"  />
-                <p>Année: <output id="valueAlbum"></output></p>
+                <p class="display-output">Year: <output id="valueAlbum"></output></p>
                 <script src="./static/dist/annee.js"></script>
               </div>
               </li>
               <li><li><form action="#">
-                <label for="lang">locations</label>
+                <label for="lang">Locations</label>
                 <select name="languages" id="lang">
                   <option value="javascript">new york </option>
                   <option value="php">vegas</option>
@@ -79,9 +79,9 @@
     <form method="get" action="/infos">
     <div class="grid grid-cols-7 gap-8 ml-1 mr-1">
         {{range .Artist }}
-        <div class="bord border-2 rounded-2xl border-mwg">
+        <div class="border-2 rounded-2xl border-mwg">
             <button type="submit" value="{{.Id}}" name="id">
-                <img src="{{.Image}}" class="artistes rounded-2xl w-60 h-60">
+                <img src="{{.Image}}" class="rounded-2xl w-60 h-60">
                 <p class="text text-center text-2xl">{{.Name}}</p>
             </button>
         </div>
