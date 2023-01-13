@@ -517,9 +517,8 @@ video {
   position: sticky;
 }
 
-.my-6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+.col-span-3 {
+  grid-column: span 3 / span 3;
 }
 
 .mt-1 {
@@ -550,6 +549,10 @@ video {
   margin-top: 20rem;
 }
 
+.mt-32 {
+  margin-top: 8rem;
+}
+
 .grid {
   display: grid;
 }
@@ -566,12 +569,28 @@ video {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 .gap-8 {
   gap: 2rem;
 }
 
-.self-center {
-  align-self: center;
+.gap-0 {
+  gap: 0px;
 }
 
 .rounded-2xl {
@@ -684,29 +703,17 @@ a:active{
 
 .image{
   align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .footer_b{
   color: #E1E1E1;
-  position: static;
+  position:static;
   left: 0;
   bottom: 0;
   right: 0;
   padding: 1rem;
   text-align: center;
   font-family: 'ModernWarfare',sans-serif;
-}
-
-@media (min-width: 640px) {
-  .sm\:mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:my-8 {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
 }

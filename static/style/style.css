@@ -63,11 +63,13 @@ a:active{
 
 .image{
     align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .footer_b{
     color: #E1E1E1;
-    position: static;
+    position:static;
     left: 0;
     bottom: 0;
     right: 0;

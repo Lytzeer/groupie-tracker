@@ -7,51 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/static/dist/style.css" rel="stylesheet" />
     <link rel="shortcut icon" href="/static/pics/fav_icon.png" type="image/png">
-    <title>Information</title>
+    <title>Informations</title>
 </head>
 
 <body>
     <h1 class="logo text-base mt-1 sticky"><a href="/">Groupi<span class="middle_letter">e-T</span>racker</a></h1>
-    <div class="text text-center text-4xl mt-12">Info<span class="middle_letter">rma</span>tion</div>
-    <div class="text-center object-center">
+    <div class="text text-center text-4xl mt-12">Info<span class="middle_letter">rmat</span>ions</div>
+    <div class="text-center object-center grid grid-cols-3 grid-rows-2 gap-0 justify-center items-center mt-32">
         <div class="text">
             {{.Artist.Name}}
+            <div class=" text-mwg">
+                ({{.Artist.Creation_date}})
+            </div>
+            <div class="image">
+                <img class="infoDiv rounded-2xl w-60 h-60"src="{{.Artist.Image}}">
+            </div>
         </div>
-        <div class="text">
-            ({{.Artist.Creation_date}})
+        <div class="text" span>
+            <h3 class=" text-mwg"><i>Members</i></h3>
+            {{range .Artist.Members}}
+            <ul class="text">{{.}}</ul>
+            {{end}}
         </div>
-        <div class="image">
-            <img class="infoDiv rounded-2xl w-60 h-60"src="{{.Artist.Image}}">
+        <div class="Album" span>
+            <p class=" text-mwg"><i>First album release date</i></p>
+            <p class="text">{{.Artist.First_ablbum}}</p>
         </div>
-        <div class="total">
-            <div class="text" span>
-                <h3 class=" text-mwg"><i>Members</i></h3>
-                {{range .Artist.Members}}
-                <ul class="text">{{.}}</ul>
-                {{end}}
-            </div>
-            <div class="Information" span>
-                <p class=" text-mwg"><i>First album release date</i></p>
-                <p class="text">{{.Artist.First_ablbum}}</p>
-            </div>
-            <div class="Information" span>
-                <p class="sameln text-mwg"><i>Location</i></p>
-                {{range.Location.Locations}}
-                <ul class="text"> {{.}} </ul>
-                {{end}}
-            </div>
-            <div class="Information" span>
-                <p class=" text-mwg"><i>Dates</i></p>
-                {{range .Date.Dates}}
-                <ol class="list">
-                    <div class="dropdown-content">
-                        <p class="text">{{.}}</p>
-                    </div> 
-                </ol>
-                {{end}}
-            </div>
+        <div class="Information col-span-3 text" span>
+            <p class=" text-mwg"><i>Locations & Dates</i></p>
+            {{ range $artist := .All}}
+                {{ range $t:= $artist }}
+                    <p>{{ $t }}</p>
+                {{ end }}
+            {{ end }}
         </div>
     </div>
-    <footer class="footer_b">[ Matheo LANG <span class="middle_letter">Timothee DURAN</span> Lukas PORTIER ]</footer>
+    <footer class="footer">[ Matheo LANG <span class="middle_letter">Timothee DURAN</span> Lukas PORTIER ]</footer>
 </body>
 </html>
