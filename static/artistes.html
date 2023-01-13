@@ -11,6 +11,70 @@
 <body>
     <h1 class="logo text-base mt-1"><a href="/">Groupi<span class="middle_letter">e-T</span>racker</a></h1>
     <h1 class="text text-5xl text-center mt-20">Groupi<span class="middle_letter">e-T</span>racker</h1>
+    <div id="wrap">
+        <ul class="navbar">
+          <li>
+            <a href="#">Filtre</a>
+            <ul>
+              <li><form action="#">
+                <label for="lang">Nombre de Membres</label>
+                <div>                
+                  <input type="radio" id="contactChoiceAll" name="contact" value="All">
+                  <label for="contactChoiceAll">All</label>
+                  
+                  <input type="radio" id="contactChoice1" name="contact" value="1">
+                  <label for="contactChoice1">1</label>
+
+                  <input type="radio" id="contactChoice2" name="contact" value="2">
+                  <label for="contactChoice2">2</label>
+                  
+                  <input type="radio" id="contactChoice3" name="contact" value="3">
+                  <label for="contactChoice3">3</label>
+    
+                  <input type="radio" id="contactChoice4" name="contact" value="4">
+                  <label for="contactChoice4">4</label>
+                  
+                  <input type="radio" id="contactChoice5" name="contact" value="5">
+                  <label for="contactChoice5">5</label>
+                  
+                  <input type="radio" id="contactChoice6" name="contact" value="6">
+                  <label for="contactChoice6">6</label>
+    
+                  <input type="radio" id="contactChoice7" name="contact" value="7">
+                  <label for="contactChoice7">7</label>
+                </div>
+              </form></li>
+              <li><div>
+                <label for="volume">create Année</label>
+                <input id="pi_input" type="range" min="1940" max="2023"  />
+                <p>Année: <output id="value"></output></p>
+              </div>
+              </li>
+              <li><div>
+                <label for="volume2">album Année</label>
+                <input id="pi_input2" type="range" min="1940" max="2023"  />
+                <p>Année: <output id="valueAlbum"></output></p>
+                <script src="./static/dist/annee.js"></script>
+              </div>
+              </li>
+              <li><li><form action="#">
+                <label for="lang">locations</label>
+                <select name="languages" id="lang">
+                  <option value="javascript">new york </option>
+                  <option value="php">vegas</option>
+                  <option value="java">saint loubès</option>
+                  <option value="golang">izon</option>
+                  <option value="python">oradour</option>
+                  <option value="c#">sur glane</option>
+                  <option value="C++">coucou</option>
+                </select>
+            </form></li></li>
+            <li><input type="submit" value="submit"></li>
+            </ul>
+          </li>
+          </li>
+        </ul>
+      </div>
     <p class="text text-center text-4xl mt-12 mb-3">Gr<span class="middle_letter">ou</span>ps</p>
     <form method="get" action="/infos">
     <div class="grid grid-cols-7 gap-8 ml-1 mr-1">
