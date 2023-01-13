@@ -37,8 +37,9 @@
             <p class=" text-mwg"><i>Locations & Dates</i></p>
             {{ range $artist := .All}}
                 {{ range $t:= $artist }}
-                    <p>{{ $t }}</p>
+                    <p class=" inline-block">{{ $t }}</p>
                 {{ end }}
+                <br />
             {{ end }}
         </div>
     </div>

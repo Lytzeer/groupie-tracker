@@ -553,6 +553,10 @@ video {
   margin-top: 8rem;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .grid {
   display: grid;
 }
