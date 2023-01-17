@@ -824,6 +824,10 @@ a:active{
   margin-top: 10px;
 }
 
+#wrap button {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
 /*sep*/
 
 .display-output{

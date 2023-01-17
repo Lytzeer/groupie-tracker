@@ -16,62 +16,74 @@
           <li>
             <a href="#">Filter</a>
             <ul>
-              <li><form action="#">
+              <li><form action="/filter" method="post">
                 <label for="lang">Number of Memebers</label>
-                <div>                
-                  <input type="radio" id="contactChoiceAll" name="contact" value="All">
-                  <label for="contactChoiceAll">All</label>
-                  
-                  <input type="radio" id="contactChoice1" name="contact" value="1">
-                  <label for="contactChoice1">1</label>
-
-                  <input type="radio" id="contactChoice2" name="contact" value="2">
-                  <label for="contactChoice2">2</label>
-                  
-                  <input type="radio" id="contactChoice3" name="contact" value="3">
-                  <label for="contactChoice3">3</label>
-    
-                  <input type="radio" id="contactChoice4" name="contact" value="4">
-                  <label for="contactChoice4">4</label>
-                  
-                  <input type="radio" id="contactChoice5" name="contact" value="5">
-                  <label for="contactChoice5">5</label>
-                  
-                  <input type="radio" id="contactChoice6" name="contact" value="6">
-                  <label for="contactChoice6">6</label>
-    
-                  <input type="radio" id="contactChoice7" name="contact" value="7">
-                  <label for="contactChoice7">7</label>
+                <div>
+                  <div>        
+                    <input type="radio" id="contactChoiceAll" name="Member" value="All" checked>
+                    <label for="huey">All</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice1" name="Member" value="1" >
+                    <label for="contactChoice1">1</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice2" name="Member" value="2" >
+                    <label for="contactChoice2">2</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice3" name="Member" value="3">
+                    <label for="contactChoice3">3</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice4" name="Member" value="4">
+                    <label for="contactChoice4">4</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice5" name="Member" value="5">
+                    <label for="contactChoice5">5</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice6" name="Member" value="6">
+                    <label for="contactChoice6">6</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="contactChoice7" name="Member" value="7">
+                    <label for="contactChoice7">7</label>
+                  </div>
                 </div>
-              </form></li>
+              </li>
               <li><div>
                 <label for="volume">Year of creation</label>
-                <input id="pi_input" type="range" min="1940" max="2023"  />
+                <input id="pi_input" name="creationdate" type="range" min="1940" max="2023" value="0" />
                 <p class="display-output">Year: <output id="value"></output></p>
               </div>
               </li>
               <li><div>
                 <label for="volume2">Album Year</label>
-                <input id="pi_input2" type="range" min="1940" max="2023"  />
+                <input id="pi_input2" name="albumdate" type="range" min="1940" max="2023" value="0" />
                 <p class="display-output">Year: <output id="valueAlbum"></output></p>
                 <script src="./static/dist/annee.js"></script>
               </div>
               </li>
-              <li><li><form action="#">
+              <li><li>
                 <label for="lang">Locations</label>
-                <select name="languages" id="lang">
-                  <option value="javascript">new york </option>
-                  <option value="php">vegas</option>
-                  <option value="java">saint loubès</option>
-                  <option value="golang">izon</option>
-                  <option value="python">oradour</option>
-                  <option value="c#">sur glane</option>
-                  <option value="C++">coucou</option>
+                <select id="city" name="city">
+                  <option value="newyork">new york </option>
+                  <option value="vegas">vegas</option>
+                  <option value="sl">saint loubès</option>
+                  <option value="izon">izon</option>
+                  <option value="oradour">oradour</option>
+                  <option value="glane">sur glane</option>
+                  <option value="glane">coucou</option>
                 </select>
-            </form></li></li>
-            <li><input type="submit" value="submit"></li>
+            </li></li>
+            <li><button name="submitfilter" type="submit">Submit</button>
+            </li></form>
             </ul>
           </li>
+
+
           </li>
         </ul>
       </div>
