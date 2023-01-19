@@ -55,18 +55,6 @@ func Isin(ele string, tab []string) bool {
 	return false
 }
 func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION) gpd.DATAS {
-	var capi string
-	var country []string
-	for i := 0; i < (len(Donnees.Location)); i++ {
-		for j := 0; j < (len(Donnees.Location[i].Locations)); j++ {
-			capi = strings.Split(Donnees.Location[i].Locations[j], "-")[1]
-			if !Isin(capi, country) {
-				country = append(country, capi)
-			}
-
-		}
-	}
-	Donnees.Country = country
 
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
@@ -102,6 +90,19 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 	}
 
 	Donnees.All = gps.GetAll(Donnees)
+
+	var capi string
+	var country []string
+	for i := 0; i < (len(Donnees.Location)); i++ {
+		for j := 0; j < (len(Donnees.Location[i].Locations)); j++ {
+			capi = strings.Split(Donnees.Location[i].Locations[j], "-")[1]
+			if !Isin(capi, country) {
+				country = append(country, capi)
+			}
+
+		}
+	}
+	Donnees.Country = country
 	fmt.Println(Donnees.All)
 	return Donnees
 

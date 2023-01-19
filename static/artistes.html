@@ -92,13 +92,10 @@
               <li><li>
                 <label for="lang">Locations</label>
                 <select id="city" name="city">
-                  <option value="newyork">new york </option>
-                  <option value="vegas">vegas</option>
-                  <option value="sl">saint loubès</option>
-                  <option value="izon">izon</option>
-                  <option value="oradour">oradour</option>
-                  <option value="glane">sur glane</option>
-                  <option value="glane">coucou</option>
+                  <option value="All">All</option>
+                  {{ range .Country}}
+                  <option value="{{.}}">{{.}}</option>
+                  {{end}}
                 </select>
             </li></li>
             <li><button name="submitfilter" type="submit"><span class="text-base">Submit</span></button>
