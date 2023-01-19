@@ -84,6 +84,7 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sdatas.All = donnermoi.All
+	sdatas.Country = donnermoi.Country
 
 	fmt.Println(sdatas)
 	var tmpl *template.Template
@@ -156,6 +157,7 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Donnees.All = donnermoi.All
+	Donnees.Country = donnermoi.Country
 
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
