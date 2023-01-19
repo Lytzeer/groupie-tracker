@@ -1,12 +1,11 @@
 package groupie
 
 import (
-	"fmt"
 	gpd "groupie/datas"
 	"strconv"
 )
 
-func GetAll(d gpd.DATAS) {
+func GetAll(d gpd.DATAS) []string {
 	Names := []string{}
 	Members := []string{}
 	Positions := []string{}
@@ -27,9 +26,11 @@ func GetAll(d gpd.DATAS) {
 
 	}
 
-	fmt.Println(Names)
-	fmt.Println(Members)
-	fmt.Println(Positions)
-	fmt.Println(FirstAlbum)
-	fmt.Println(Creation)
+	d.All = append(d.All, Names...)
+	d.All = append(d.All, Members...)
+	d.All = append(d.All, Positions...)
+	d.All = append(d.All, FirstAlbum...)
+	d.All = append(d.All, Creation...)
+
+	return d.All
 }

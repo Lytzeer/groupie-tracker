@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	gpd "groupie/datas"
+	gps "groupie/search-bar"
 	"io/ioutil"
 	"net/http"
 )
@@ -77,7 +78,9 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 	for i := 0; i < (len(Donnees.Artist)); i++ {
 		Donnees.NbMembers = append(Donnees.NbMembers, len(Donnees.Artist[i].Members))
 	}
-	fmt.Println(Donnees.NbMembers)
+
+	Donnees.All = gps.GetAll(Donnees)
+	fmt.Println(Donnees.All)
 	return Donnees
 
 }

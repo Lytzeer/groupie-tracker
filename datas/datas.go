@@ -17,4 +17,5 @@ type DATAS struct {
 
 	Locs      [][][]string
 	NbMembers []int
+	All       []string
 }
