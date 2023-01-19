@@ -7,6 +7,7 @@ import (
 	gps "groupie/search-bar"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 var Ap gpd.API
@@ -44,8 +45,29 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 
 	return Da, Ar, GL, Re
 }
+func Isin(ele string, tab []string) bool {
 
+	for _, element := range tab {
+		if element == ele {
+			return true
+		}
+	}
+	return false
+}
 func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION) gpd.DATAS {
+	var capi string
+	var country []string
+	for i := 0; i < (len(Donnees.Location)); i++ {
+		for j := 0; j < (len(Donnees.Location[i].Locations)); j++ {
+			capi = strings.Split(Donnees.Location[i].Locations[j], "-")[1]
+			if !Isin(capi, country) {
+				country = append(country, capi)
+			}
+
+		}
+	}
+	Donnees.Country = country
+
 	Donnees.Date = d.Index
 	for i := 0; i < (len(a)); i++ {
 		Donnees.Artist = append(Donnees.Artist, a[i])
