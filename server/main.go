@@ -113,24 +113,8 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		coucou, _ := strconv.Atoi(cioucou)
 		splitalbum = append(splitalbum, coucou)
 	}
-	// for i := 0; i < (len(donnermoi.Artist)); i++ {
-	// 	cioucou := strings.Split(donnermoi.Artist[i].Rlations, "-")[1]
-	// 	splitalbum = append(splitalbum, cioucou)
-	// }
-
-	// var country []string
-	// var cafguieduvzg []string
-	// for i := 0; i < (len(donnermoi.Location)); i++ {
-	// 	for j := 0; j < (len(donnermoi.Location[i].Locations)); j++ {
-	// 		capi := strings.Split(donnermoi.Location[i].Locations[j], "-")[1]
-	// 		country = append(country, capi)
-	// 	}
-	// 	cafguieduvzg = append(cafguieduvzg, country...)
-	// }
 
 	for i := 0; i < (len(donnermoi.Artist)); i++ {
-		// fmt.Println(country)
-		// fmt.Println(len(country))
 		j := 0
 		capi := strings.Split(donnermoi.Location[i].Locations[j], "-")[1]
 		if buttons != "All" && city != "All" {
@@ -170,46 +154,6 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
-
-	// for i := 0; i < (len(donnermoi.Artist)); i++ {
-	// 	if donnermoi.Artist[i].Creation_date >= intcreation {
-	// 		var Artist gpd.ARTIST
-	// 		Artist.Name = donnermoi.Artist[i].Name
-	// 		Artist.Image = donnermoi.Artist[i].Image
-	// 		Artist.Id = donnermoi.Artist[i].Id
-	// 		Donnees.Artist = append(Donnees.Artist, Artist)
-	// 	}
-	// }
-
-	// for i := 0; i < (len(donnermoi.Artist)); i++ {
-	// 	if int(splitalbum[i]) >= intalbum {
-	// 		var Artist gpd.ARTIST
-	// 		Artist.Name = donnermoi.Artist[i].Name
-	// 		Artist.Image = donnermoi.Artist[i].Image
-	// 		Artist.Id = donnermoi.Artist[i].Id
-	// 		Donnees.Artist = append(Donnees.Artist, Artist)
-
-	// 	}
-	// }
-	// Iid, _ := strconv.Atoi(id)
-
-	// Iid = Iid - 1
-	// loc := donnermoi.Location[Iid]
-	// art := donnermoi.Artist[Iid]
-	// dat := donnermoi.Date[Iid]
-	// a := donnermoi.Locs[Iid]
-	// donnerartist := gpd.ArtistInfos{}
-	// donnerartist.Artist = art
-	// donnerartist.Location = loc
-	// donnerartist.All = a
-
-	// for i := 0; i < len(dat.Dates); i++ {
-	// 	if string(dat.Dates[i][0]) == "*" {
-	// 		dat.Dates[i] = dat.Dates[i][1:]
-	// 	}
-	// }
-
-	// donnerartist.Date = dat
 
 	Donnees.All = donnermoi.All
 
