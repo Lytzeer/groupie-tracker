@@ -93,6 +93,7 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 
 func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	buttons := r.FormValue("Member")
+	fmt.Println(buttons)
 	creation := r.FormValue("creationdate")
 	album := r.FormValue("albumdate")
 	city := r.FormValue("city")
@@ -117,13 +118,24 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 
 	
 	for i := 0; i < (len(donnermoi.Artist)); i++ {
-		if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-			var Artist gpd.ARTIST 
-			Artist.Name = donnermoi.Artist[i].Name
-			Artist.Image = donnermoi.Artist[i].Image
-			Artist.Id = donnermoi.Artist[i].Id
-			Donnees.Artist = append(Donnees.Artist, Artist)
+		if buttons != "All" {
+			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+				var Artist gpd.ARTIST 
+				Artist.Name = donnermoi.Artist[i].Name
+				Artist.Image = donnermoi.Artist[i].Image
+				Artist.Id = donnermoi.Artist[i].Id
+				Donnees.Artist = append(Donnees.Artist, Artist)
+			}
+		}else {
+			if donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+				var Artist gpd.ARTIST 
+				Artist.Name = donnermoi.Artist[i].Name
+				Artist.Image = donnermoi.Artist[i].Image
+				Artist.Id = donnermoi.Artist[i].Id
+				Donnees.Artist = append(Donnees.Artist, Artist)
+			}
 		}
+		
 	}
 
 	// for i := 0; i < (len(donnermoi.Artist)); i++ {
