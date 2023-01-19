@@ -116,26 +116,25 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	// 	splitalbum = append(splitalbum, cioucou)
 	// }
 
-	
 	for i := 0; i < (len(donnermoi.Artist)); i++ {
 		if buttons != "All" {
 			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				var Artist gpd.ARTIST 
+				var Artist gpd.ARTIST
 				Artist.Name = donnermoi.Artist[i].Name
 				Artist.Image = donnermoi.Artist[i].Image
 				Artist.Id = donnermoi.Artist[i].Id
 				Donnees.Artist = append(Donnees.Artist, Artist)
 			}
-		}else {
+		} else {
 			if donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				var Artist gpd.ARTIST 
+				var Artist gpd.ARTIST
 				Artist.Name = donnermoi.Artist[i].Name
 				Artist.Image = donnermoi.Artist[i].Image
 				Artist.Id = donnermoi.Artist[i].Id
 				Donnees.Artist = append(Donnees.Artist, Artist)
 			}
 		}
-		
+
 	}
 
 	// for i := 0; i < (len(donnermoi.Artist)); i++ {
