@@ -20,6 +20,7 @@ func main() {
 	donnermoi = gp.SetData(Da, Ar, Gl, Re)
 	fmt.Println("Starting server on port 8080")
 	http.HandleFunc("/", HandleIndex)
+	http.HandleFunc("/search", HandleSearch)
 	http.HandleFunc("/filter", HandleFilter)
 	http.HandleFunc("/infos", HandleInfos)
 	fs := http.FileServer(http.Dir("./static"))
@@ -32,6 +33,60 @@ func HandleIndex(w http.ResponseWriter, r *http.Request) {
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	tmpl.Execute(w, donnermoi)
+	return
+}
+
+func HandleSearch(w http.ResponseWriter, r *http.Request) {
+	search := r.FormValue("input")
+	intSearch, err := strconv.Atoi(search)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(intSearch)
+	fmt.Println(search)
+	var sdatas gpd.DATAS
+	cpt := 0
+	if intSearch == 0 {
+		for i := 0; i < len(donnermoi.Artist); i++ {
+			if donnermoi.Artist[i].Name == search || donnermoi.Artist[i].First_ablbum == search {
+				var Artist gpd.ARTIST
+				Artist.Name = donnermoi.Artist[i].Name
+				Artist.Image = donnermoi.Artist[i].Image
+				Artist.Id = donnermoi.Artist[i].Id
+				sdatas.Artist = append(sdatas.Artist, Artist)
+				cpt++
+			}
+			for _, members := range donnermoi.Artist[i].Members {
+				if members == search {
+					var Artist gpd.ARTIST
+					Artist.Name = donnermoi.Artist[i].Name
+					Artist.Image = donnermoi.Artist[i].Image
+					Artist.Id = donnermoi.Artist[i].Id
+					sdatas.Artist = append(sdatas.Artist, Artist)
+					cpt++
+				}
+			}
+		}
+	}
+
+	if intSearch != 0 {
+		for i := 0; i < len(donnermoi.Artist); i++ {
+			if donnermoi.Artist[i].Creation_date == intSearch {
+				var Artist gpd.ARTIST
+				Artist.Name = donnermoi.Artist[i].Name
+				Artist.Image = donnermoi.Artist[i].Image
+				Artist.Id = donnermoi.Artist[i].Id
+				sdatas.Artist = append(sdatas.Artist, Artist)
+				cpt++
+			}
+		}
+	}
+
+	fmt.Println(sdatas)
+	var tmpl *template.Template
+	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
+	//http.Redirect(w, r, "/", 302)
+	tmpl.Execute(w, sdatas)
 	return
 }
 
