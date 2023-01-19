@@ -11,17 +11,26 @@
 <body>
     <h1 class="logo text-base mt-1"><a href="/">Groupi<span class="middle_letter">e-T</span>racker™</a></h1>
     <h1 class="text text-5xl text-center mt-20">Groupi<span class="middle_letter">e-T</span>racker</h1>
+    <br>
     <form method="get" action="/search">
-      <label class="text text-5xl text-center object-right-top absolute w-0 h-0 overflow-hidden appearance-none" for="search">Search</label>
-      <input type="search" pattern=".*\S.*" required name="search" class="text text-5xl text-center object-right-top">
+      <div class="wrapper">
+        <input name="input" type="text" required>
+        <label for="input">
+            <span>
+                Search
+            </span>
+        </label>
+    </div>
     </form>
+    <br>
+    <br>
     <div id="wrap">
         <ul class="navbar">
           <li>
             <a href="#">Filter</a>
             <ul>
               <li><form action="/filter" method="post">
-                <label for="lang">Number of Memebers</label>
+                <label for="lang">Number of Members</label>
                 <div>
                   <div>        
                     <input type="radio" id="contactChoiceAll" name="Member" value="All" checked>

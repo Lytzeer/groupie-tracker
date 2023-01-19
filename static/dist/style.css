@@ -644,6 +644,10 @@ video {
   color: rgb(116 188 42 / var(--tw-text-opacity));
 }
 
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 @font-face {
   font-family: "GhostClan";
 
@@ -815,7 +819,7 @@ a:active{
   margin-bottom: 10px;
   margin-top: 10px;
   font-family: "GhostClan";
-  color: black;
+  color: #74BC2A;
   font-size: small;
 }
 
@@ -824,10 +828,70 @@ a:active{
   margin-top: 10px;
 }
 
-#wrap button {
-  margin-bottom: 15px;
-  margin-top: 15px;
+.wrapper{
+  width:50%;
+  height:50px;
+  position: absolute;
+  right: 0;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
 }
+
+.wrapper input{
+  width:100%;
+  height:100%;
+  color:#E1E1E1;
+  padding-top:10px;
+  border:none;
+  font-size: 16px;
+  font-family: "GhostClan";
+  outline: none;
+  background-color: transparent;
+}
+
+.wrapper label{
+  position: absolute;
+  left:0px;
+  bottom: 0px;
+  width:100%;
+  height:100%;
+  pointer-events: none;
+  border-bottom: 3px solid #E1E1E1;
+}
+
+.wrapper label:after{
+  content:'';
+  width:100%;
+  height:100%;
+  left:0px;
+  bottom:-3px;
+  border-bottom: 3px solid #74BC2A;
+  position: absolute;
+  transform: translateX(-100%);
+  transition: all .6s ease;
+}
+
+.wrapper label span{
+  position: absolute;
+  bottom:5px;
+  left:0px;
+  transition: all .6s ease;
+  color: #E1E1E1;
+}
+
+.wrapper input:focus + label span,
+  .wrapper input:valid + label span{
+  transform: translateY(-20px);
+  transition: all .6s ease;
+  color:#74BC2A;
+}
+
+.wrapper input:focus + label:after,
+  .wrapper input:valid + label:after{
+  transform: translateX(0%);
+  transition: all .6s ease;
+}
+
 /*sep*/
 
 .display-output{
