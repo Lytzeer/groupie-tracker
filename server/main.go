@@ -44,25 +44,6 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(creation)
 	fmt.Println(album)
 	fmt.Println(city)
-	// Iid, _ := strconv.Atoi(id)
-
-	// Iid = Iid - 1
-	// loc := donnermoi.Location[Iid]
-	// art := donnermoi.Artist[Iid]
-	// dat := donnermoi.Date[Iid]
-	// a := donnermoi.Locs[Iid]
-	// donnerartist := gpd.ArtistInfos{}
-	// donnerartist.Artist = art
-	// donnerartist.Location = loc
-	// donnerartist.All = a
-
-	// for i := 0; i < len(dat.Dates); i++ {
-	// 	if string(dat.Dates[i][0]) == "*" {
-	// 		dat.Dates[i] = dat.Dates[i][1:]
-	// 	}
-	// }
-
-	// donnerartist.Date = dat
 
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
