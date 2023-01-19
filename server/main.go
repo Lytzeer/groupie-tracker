@@ -118,17 +118,45 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	// 	splitalbum = append(splitalbum, cioucou)
 	// }
 
+	var country []string
+	var cafguieduvzg []string
+	for i := 0; i < (len(donnermoi.Location)); i++ {
+		for j := 0; j < (len(donnermoi.Location[i].Locations)); j++ {
+			capi := strings.Split(donnermoi.Location[i].Locations[j], "-")[1]
+			country = append(country, capi)	
+		}
+		cafguieduvzg = append(cafguieduvzg, country...)
+	}
+
 	for i := 0; i < (len(donnermoi.Artist)); i++ {
-		if buttons != "All" {
-			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+		fmt.Println(country)
+		fmt.Println(len(country))
+		if buttons != "All" && city != "All" {
+			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && country[i] == city {
 				var Artist gpd.ARTIST
 				Artist.Name = donnermoi.Artist[i].Name
 				Artist.Image = donnermoi.Artist[i].Image
 				Artist.Id = donnermoi.Artist[i].Id
 				Donnees.Artist = append(Donnees.Artist, Artist)
 			}
-		} else {
+		} else if buttons == "All" && city != "All" {
+			if donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && country[i] == city {
+				var Artist gpd.ARTIST
+				Artist.Name = donnermoi.Artist[i].Name
+				Artist.Image = donnermoi.Artist[i].Image
+				Artist.Id = donnermoi.Artist[i].Id
+				Donnees.Artist = append(Donnees.Artist, Artist)
+			}
+		} else if buttons == "All" && city == "All" {
 			if donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+				var Artist gpd.ARTIST
+				Artist.Name = donnermoi.Artist[i].Name
+				Artist.Image = donnermoi.Artist[i].Image
+				Artist.Id = donnermoi.Artist[i].Id
+				Donnees.Artist = append(Donnees.Artist, Artist)
+			}
+		} else if buttons != "All" && city == "All" {
+			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
 				var Artist gpd.ARTIST
 				Artist.Name = donnermoi.Artist[i].Name
 				Artist.Image = donnermoi.Artist[i].Image
@@ -138,6 +166,9 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
+
+
+
 
 	// for i := 0; i < (len(donnermoi.Artist)); i++ {
 	// 	if donnermoi.Artist[i].Creation_date >= intcreation {
