@@ -660,6 +660,9 @@ video {
 
 body{
   background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1{
@@ -698,24 +701,13 @@ a:active{
   color: #74BC2A;
 }
 
-.footer{
-  color: #E1E1E1;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 1rem;
-  text-align: center;
-  font-family: 'GhostClan',sans-serif;
-}
-
 .image{
   align-items: center;
   display: flex;
   justify-content: center;
 }
 
-.footer_b{
+.footer{
   color: #E1E1E1;
   position:static;
   left: 0;
@@ -724,6 +716,7 @@ a:active{
   padding: 1rem;
   text-align: center;
   font-family: 'GhostClan',sans-serif;
+  margin-top: auto;
 }
 
 .navbar {
