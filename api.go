@@ -2,7 +2,6 @@ package groupie
 
 import (
 	"encoding/json"
-	"fmt"
 	gpd "groupie/datas"
 	gps "groupie/search-bar"
 	"io/ioutil"
@@ -103,7 +102,7 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 		}
 	}
 	Donnees.Country = country
-	fmt.Println(Donnees.All)
+
 	return Donnees
 
 }
