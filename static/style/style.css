@@ -163,7 +163,7 @@ a:active{
     margin-top: 10px;
   }
   
-  .wrapper{
+  .wrapper2{
     width:50%;
     height:50px;
     position: absolute;
@@ -171,7 +171,7 @@ a:active{
     transform: translate(-50%, -50%);
     overflow: hidden;
   }
-  .wrapper input{
+  .wrapper2 input{
     width:100%;
     height:100%;
     color:#E1E1E1;
@@ -182,7 +182,7 @@ a:active{
     outline: none;
     background-color: transparent;
   }
-  .wrapper label{
+  .wrapper2 label{
     position: absolute;
     left:0px;
     bottom: 0px;
@@ -191,7 +191,7 @@ a:active{
     pointer-events: none;
     border-bottom: 3px solid #E1E1E1;
   }
-  .wrapper label:after{
+  .wrapper2 label:after{
     content:'';
     width:100%;
     height:100%;
@@ -202,32 +202,32 @@ a:active{
     transform: translateX(-100%);
     transition: all .6s ease;
   }
-  .wrapper label span{
+  .wrapper2 label span{
     position: absolute;
     bottom:5px;
     left:0px;
     transition: all .6s ease;
     color: #E1E1E1;
   }
-  .wrapper input:focus + label span,
-  .wrapper input:valid + label span{
+  .wrapper2 input:focus + label span,
+  .wrapper2 input:valid + label span{
     transform: translateY(-20px);
     transition: all .6s ease;
     color:#74BC2A;
   }
-  .wrapper input:focus + label:after,
-  .wrapper input:valid + label:after{
+  .wrapper2 input:focus + label:after,
+  .wrapper2 input:valid + label:after{
     transform: translateX(0%);
     transition: all .6s ease;
   }
   
   /*sep*/
 
+.search-box{
+  border: solid;
+}
+
 .display-output{
     color: black;
     font-size: medium;
-}
-
-.about-info{
-  
 }

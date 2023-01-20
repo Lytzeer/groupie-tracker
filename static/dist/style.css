@@ -517,10 +517,6 @@ video {
   position: sticky;
 }
 
-.col-span-3 {
-  grid-column: span 3 / span 3;
-}
-
 .col-start-2 {
   grid-column-start: 2;
 }
@@ -553,32 +549,24 @@ video {
   margin-bottom: 0.75rem;
 }
 
-.mt-80 {
-  margin-top: 20rem;
+.mt-4 {
+  margin-top: 1rem;
 }
 
 .mt-32 {
   margin-top: 8rem;
 }
 
-.mt-24 {
-  margin-top: 6rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
-.ml-36 {
-  margin-left: 9rem;
-}
-
 .ml-72 {
   margin-left: 18rem;
 }
 
-.inline-block {
-  display: inline-block;
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .grid {
@@ -625,8 +613,16 @@ video {
   border-radius: 1rem;
 }
 
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
 .border-2 {
   border-width: 2px;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .border-mwg {
@@ -850,7 +846,7 @@ a:active{
   margin-top: 10px;
 }
 
-.wrapper{
+.wrapper2{
   width:50%;
   height:50px;
   position: absolute;
@@ -859,7 +855,7 @@ a:active{
   overflow: hidden;
 }
 
-.wrapper input{
+.wrapper2 input{
   width:100%;
   height:100%;
   color:#E1E1E1;
@@ -871,7 +867,7 @@ a:active{
   background-color: transparent;
 }
 
-.wrapper label{
+.wrapper2 label{
   position: absolute;
   left:0px;
   bottom: 0px;
@@ -881,7 +877,7 @@ a:active{
   border-bottom: 3px solid #E1E1E1;
 }
 
-.wrapper label:after{
+.wrapper2 label:after{
   content:'';
   width:100%;
   height:100%;
@@ -893,7 +889,7 @@ a:active{
   transition: all .6s ease;
 }
 
-.wrapper label span{
+.wrapper2 label span{
   position: absolute;
   bottom:5px;
   left:0px;
@@ -901,25 +897,26 @@ a:active{
   color: #E1E1E1;
 }
 
-.wrapper input:focus + label span,
-  .wrapper input:valid + label span{
+.wrapper2 input:focus + label span,
+  .wrapper2 input:valid + label span{
   transform: translateY(-20px);
   transition: all .6s ease;
   color:#74BC2A;
 }
 
-.wrapper input:focus + label:after,
-  .wrapper input:valid + label:after{
+.wrapper2 input:focus + label:after,
+  .wrapper2 input:valid + label:after{
   transform: translateX(0%);
   transition: all .6s ease;
 }
 
 /*sep*/
 
+.search-box{
+  border: solid;
+}
+
 .display-output{
   color: black;
   font-size: medium;
-}
-
-.about-info{
 }
