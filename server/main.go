@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-var donnermoi gpd.DATAS
+var Alldatas gpd.DATAS
 var Da gpd.DATE
 var Ar []gpd.ARTIST
 var Gl gpd.GetLocation
@@ -18,7 +18,7 @@ var Re gpd.RELATION
 
 func main() {
 	Da, Ar, Gl, Re = gp.GetDatas()
-	donnermoi = gp.SetData(Da, Ar, Gl, Re)
+	Alldatas = gp.SetData(Da, Ar, Gl, Re)
 	fmt.Println("Starting server on port 8080")
 	http.HandleFunc("/", HandleIndex)
 	http.HandleFunc("/search", HandleSearch)
@@ -33,7 +33,7 @@ func main() {
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
-	tmpl.Execute(w, donnermoi)
+	tmpl.Execute(w, Alldatas)
 	return
 }
 
@@ -48,21 +48,21 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	var sdatas gpd.DATAS
 	cpt := 0
 	if intSearch == 0 {
-		for i := 0; i < len(donnermoi.Artist); i++ {
-			if donnermoi.Artist[i].Name == search || donnermoi.Artist[i].First_ablbum == search {
+		for i := 0; i < len(Alldatas.Artist); i++ {
+			if Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search {
 				var Artist gpd.ARTIST
-				Artist.Name = donnermoi.Artist[i].Name
-				Artist.Image = donnermoi.Artist[i].Image
-				Artist.Id = donnermoi.Artist[i].Id
+				Artist.Name = Alldatas.Artist[i].Name
+				Artist.Image = Alldatas.Artist[i].Image
+				Artist.Id = Alldatas.Artist[i].Id
 				sdatas.Artist = append(sdatas.Artist, Artist)
 				cpt++
 			}
-			for _, members := range donnermoi.Artist[i].Members {
+			for _, members := range Alldatas.Artist[i].Members {
 				if members == search {
 					var Artist gpd.ARTIST
-					Artist.Name = donnermoi.Artist[i].Name
-					Artist.Image = donnermoi.Artist[i].Image
-					Artist.Id = donnermoi.Artist[i].Id
+					Artist.Name = Alldatas.Artist[i].Name
+					Artist.Image = Alldatas.Artist[i].Image
+					Artist.Id = Alldatas.Artist[i].Id
 					sdatas.Artist = append(sdatas.Artist, Artist)
 					cpt++
 				}
@@ -71,20 +71,20 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if intSearch != 0 {
-		for i := 0; i < len(donnermoi.Artist); i++ {
-			if donnermoi.Artist[i].Creation_date == intSearch {
+		for i := 0; i < len(Alldatas.Artist); i++ {
+			if Alldatas.Artist[i].Creation_date == intSearch {
 				var Artist gpd.ARTIST
-				Artist.Name = donnermoi.Artist[i].Name
-				Artist.Image = donnermoi.Artist[i].Image
-				Artist.Id = donnermoi.Artist[i].Id
+				Artist.Name = Alldatas.Artist[i].Name
+				Artist.Image = Alldatas.Artist[i].Image
+				Artist.Id = Alldatas.Artist[i].Id
 				sdatas.Artist = append(sdatas.Artist, Artist)
 				cpt++
 			}
 		}
 	}
 
-	sdatas.All = donnermoi.All
-	sdatas.Country = donnermoi.Country
+	sdatas.All = Alldatas.All
+	sdatas.Country = Alldatas.Country
 
 	fmt.Println(sdatas)
 	var tmpl *template.Template
@@ -93,71 +93,59 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, sdatas)
 	return
 }
+func Displaydata(i int, Donnees gpd.DATAS) []gpd.ARTIST{
+	var Artist gpd.ARTIST
+	Artist.Name = Alldatas.Artist[i].Name
+	Artist.Image = Alldatas.Artist[i].Image
+	Artist.Id = Alldatas.Artist[i].Id
+	Donnees.Artist = append(Donnees.Artist, Artist)
+	return (Donnees.Artist)
+}
 
 func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	buttons := r.FormValue("Member")
-	fmt.Println(buttons)
 	creation := r.FormValue("creationdate")
 	album := r.FormValue("albumdate")
 	city := r.FormValue("city")
-	fmt.Println(creation)
-	fmt.Println(album)
-	fmt.Println(city)
 
 	var Donnees gpd.DATAS
 	intbutton, _ := strconv.Atoi(buttons)
 	intcreation, _ := strconv.Atoi(creation)
 	intalbum, _ := strconv.Atoi(album)
 	var splitalbum []int
-	for i := 0; i < (len(donnermoi.Artist)); i++ {
-		cioucou := strings.Split(donnermoi.Artist[i].First_ablbum, "-")[2]
-		coucou, _ := strconv.Atoi(cioucou)
-		splitalbum = append(splitalbum, coucou)
+	for i := 0; i < (len(Alldatas.Artist)); i++ {
+		splitalbumel := strings.Split(Alldatas.Artist[i].First_ablbum, "-")[2]
+		splitalbumstr, _ := strconv.Atoi(splitalbumel)
+		splitalbum = append(splitalbum, splitalbumstr)
 	}
 
-	for i := 0; i < (len(donnermoi.Artist)); i++ {
+	for i := 0; i < (len(Alldatas.Artist)); i++ {
 		j := 0
-		capi := strings.Split(donnermoi.Location[i].Locations[j], "-")[1]
+		capi := strings.Split(Alldatas.Location[i].Locations[j], "-")[1]
 		if buttons != "All" && city != "All" {
-			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-				var Artist gpd.ARTIST
-				Artist.Name = donnermoi.Artist[i].Name
-				Artist.Image = donnermoi.Artist[i].Image
-				Artist.Id = donnermoi.Artist[i].Id
-				Donnees.Artist = append(Donnees.Artist, Artist)
+			if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
+				Donnees.Artist = Displaydata(i , Donnees)
 			}
 			j++
 		} else if buttons == "All" && city != "All" {
-			if donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-				var Artist gpd.ARTIST
-				Artist.Name = donnermoi.Artist[i].Name
-				Artist.Image = donnermoi.Artist[i].Image
-				Artist.Id = donnermoi.Artist[i].Id
-				Donnees.Artist = append(Donnees.Artist, Artist)
+			if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
+				Donnees.Artist = Displaydata(i , Donnees)
 			}
 			j++
 		} else if buttons == "All" && city == "All" {
-			if donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				var Artist gpd.ARTIST
-				Artist.Name = donnermoi.Artist[i].Name
-				Artist.Image = donnermoi.Artist[i].Image
-				Artist.Id = donnermoi.Artist[i].Id
-				Donnees.Artist = append(Donnees.Artist, Artist)
+			if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+				Donnees.Artist = Displaydata(i , Donnees)
 			}
 		} else if buttons != "All" && city == "All" {
-			if len(donnermoi.Artist[i].Members) == intbutton && donnermoi.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				var Artist gpd.ARTIST
-				Artist.Name = donnermoi.Artist[i].Name
-				Artist.Image = donnermoi.Artist[i].Image
-				Artist.Id = donnermoi.Artist[i].Id
-				Donnees.Artist = append(Donnees.Artist, Artist)
+			if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+				Donnees.Artist = Displaydata(i , Donnees)
 			}
 		}
 
 	}
 
-	Donnees.All = donnermoi.All
-	Donnees.Country = donnermoi.Country
+	Donnees.All = Alldatas.All
+	Donnees.Country = Alldatas.Country
 
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
@@ -173,10 +161,10 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 
 	Iid = Iid - 1
 
-	loc := donnermoi.Location[Iid]
-	art := donnermoi.Artist[Iid]
-	dat := donnermoi.Date[Iid]
-	a := donnermoi.Locs[Iid]
+	loc := Alldatas.Location[Iid]
+	art := Alldatas.Artist[Iid]
+	dat := Alldatas.Date[Iid]
+	a := Alldatas.Locs[Iid]
 	donnerartist := gpd.ArtistInfos{}
 	donnerartist.Artist = art
 	donnerartist.Location = loc
