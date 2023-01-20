@@ -39,12 +39,9 @@ func HandleIndex(w http.ResponseWriter, r *http.Request) {
 
 func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	search := r.FormValue("input")
-	intSearch, err := strconv.Atoi(search)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(intSearch)
-	fmt.Println(search)
+	intSearch, _ := strconv.Atoi(search)
+
+	
 	var sdatas gpd.DATAS
 	cpt := 0
 	if intSearch == 0 {
@@ -86,7 +83,7 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	sdatas.All = Alldatas.All
 	sdatas.Country = Alldatas.Country
 
-	fmt.Println(sdatas)
+	
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	//http.Redirect(w, r, "/", 302)
@@ -170,7 +167,7 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 	donnerartist.Location = loc
 	donnerartist.All = a
 
-	fmt.Println(a)
+	
 
 	for i := 0; i < len(dat.Dates); i++ {
 		if string(dat.Dates[i][0]) == "*" {
