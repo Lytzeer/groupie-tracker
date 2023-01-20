@@ -67,7 +67,7 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 		All[i] = make([][]string, len(Donnees.Relation[i].DatesLocations))
 		cpt := 0
 		for loc, dates := range Donnees.Relation[i].DatesLocations {
-			All[i][cpt] = append(All[i][cpt], loc)
+			All[i][cpt] = append(All[i][cpt], loc+" : ")
 			for j := 0; j < len(dates); j++ {
 				if j == 0 {
 					All[i][cpt] = append(All[i][cpt], dates[j])
