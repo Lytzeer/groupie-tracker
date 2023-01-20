@@ -569,6 +569,14 @@ video {
   margin-top: 1rem;
 }
 
+.ml-36 {
+  margin-left: 9rem;
+}
+
+.ml-72 {
+  margin-left: 18rem;
+}
+
 .inline-block {
   display: inline-block;
 }

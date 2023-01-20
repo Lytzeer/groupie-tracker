@@ -13,7 +13,7 @@
 <body>
     <h1 class="logo text-base mt-1 sticky"><a href="/">Groupi<span class="middle_letter">e-T</span>racker™</a></h1>
     <div class="text text-center text-4xl mt-12">Info<span class="middle_letter">rmat</span>ions</div>
-    <div class="text-center object-center grid grid-cols-3 grid-rows-2 gap-0 justify-center items-center mt-32">
+    <div class="text-center object-center grid grid-cols-3 grid-rows-2 gap-0 justify-center items-center">
         <div class="text">
             {{.Artist.Name}}
             <div class=" text-mwg">
@@ -33,11 +33,11 @@
             <p class=" text-mwg"><i>First album release date</i></p>
             <p class="text">{{.Artist.First_ablbum}}</p>
         </div>
-        <div class="col-span-3 text" span>
+        <div class="col-start-2 text" span>
             <p class=" text-mwg"><i>Locations & Dates</i></p>
             {{ range $artist := .All}}
                 {{ range $t:= $artist }}
-                    <p class=" inline-block">{{ $t }}</p>
+                    <p>{{ $t }}</p>
                 {{ end }}
                 <br />
             {{ end }}
