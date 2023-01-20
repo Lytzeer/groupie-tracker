@@ -34,7 +34,7 @@ func GetAll(d gpd.DATAS) []string {
 	A = append(A, FirstAlbum...)
 	A = append(A, Creation...)
 	for _, Ele := range A {
-		if !Isin(Ele, d.All) {
+		if !Isin(Ele, All) {
 			All = append(All, Ele)
 		}
 	}
