@@ -11,6 +11,8 @@ func GetAll(d gpd.DATAS) []string {
 	Positions := []string{}
 	FirstAlbum := []string{}
 	Creation := []string{}
+	A := []string{}
+	All := []string{}
 
 	for _, artist := range d.Artist {
 		Names = append(Names, artist.Name)
@@ -26,11 +28,26 @@ func GetAll(d gpd.DATAS) []string {
 
 	}
 
-	d.All = append(d.All, Names...)
-	d.All = append(d.All, Members...)
-	d.All = append(d.All, Positions...)
-	d.All = append(d.All, FirstAlbum...)
-	d.All = append(d.All, Creation...)
+	A = append(A, Names...)
+	A = append(A, Members...)
+	A = append(A, Positions...)
+	A = append(A, FirstAlbum...)
+	A = append(A, Creation...)
+	for _, Ele := range A {
+		if !Isin(Ele, d.All) {
+			All = append(All, Ele)
+		}
+	}
 
-	return d.All
+	return All
+}
+
+func Isin(ele string, tab []string) bool {
+
+	for _, element := range tab {
+		if element == ele {
+			return true
+		}
+	}
+	return false
 }

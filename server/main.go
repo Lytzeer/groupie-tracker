@@ -38,10 +38,10 @@ func HandleIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleSearch(w http.ResponseWriter, r *http.Request) {
+	members := []string{}
 	search := r.FormValue("input")
 	intSearch, _ := strconv.Atoi(search)
 
-	
 	var sdatas gpd.DATAS
 	cpt := 0
 	if intSearch == 0 {
@@ -52,15 +52,17 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 				Artist.Image = Alldatas.Artist[i].Image
 				Artist.Id = Alldatas.Artist[i].Id
 				sdatas.Artist = append(sdatas.Artist, Artist)
+				members = append(members, Artist.Name)
 				cpt++
 			}
-			for _, members := range Alldatas.Artist[i].Members {
-				if members == search {
+			for _, member := range Alldatas.Artist[i].Members {
+				if member == search && !gp.Isin(member, members) {
 					var Artist gpd.ARTIST
 					Artist.Name = Alldatas.Artist[i].Name
 					Artist.Image = Alldatas.Artist[i].Image
 					Artist.Id = Alldatas.Artist[i].Id
 					sdatas.Artist = append(sdatas.Artist, Artist)
+					members = append(members, Artist.Name)
 					cpt++
 				}
 			}
@@ -75,6 +77,7 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 				Artist.Image = Alldatas.Artist[i].Image
 				Artist.Id = Alldatas.Artist[i].Id
 				sdatas.Artist = append(sdatas.Artist, Artist)
+				members = append(members, Artist.Name)
 				cpt++
 			}
 		}
@@ -83,14 +86,13 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	sdatas.All = Alldatas.All
 	sdatas.Country = Alldatas.Country
 
-	
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	//http.Redirect(w, r, "/", 302)
 	tmpl.Execute(w, sdatas)
 	return
 }
-func Displaydata(i int, Donnees gpd.DATAS) []gpd.ARTIST{
+func Displaydata(i int, Donnees gpd.DATAS) []gpd.ARTIST {
 	var Artist gpd.ARTIST
 	Artist.Name = Alldatas.Artist[i].Name
 	Artist.Image = Alldatas.Artist[i].Image
@@ -121,21 +123,21 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		capi := strings.Split(Alldatas.Location[i].Locations[j], "-")[1]
 		if buttons != "All" && city != "All" {
 			if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-				Donnees.Artist = Displaydata(i , Donnees)
+				Donnees.Artist = Displaydata(i, Donnees)
 			}
 			j++
 		} else if buttons == "All" && city != "All" {
 			if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-				Donnees.Artist = Displaydata(i , Donnees)
+				Donnees.Artist = Displaydata(i, Donnees)
 			}
 			j++
 		} else if buttons == "All" && city == "All" {
 			if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				Donnees.Artist = Displaydata(i , Donnees)
+				Donnees.Artist = Displaydata(i, Donnees)
 			}
 		} else if buttons != "All" && city == "All" {
 			if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				Donnees.Artist = Displaydata(i , Donnees)
+				Donnees.Artist = Displaydata(i, Donnees)
 			}
 		}
 
@@ -166,8 +168,6 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 	donnerartist.Artist = art
 	donnerartist.Location = loc
 	donnerartist.All = a
-
-	
 
 	for i := 0; i < len(dat.Dates); i++ {
 		if string(dat.Dates[i][0]) == "*" {
