@@ -45,15 +45,18 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	var sdatas gpd.DATAS
 	cpt := 0
 	if intSearch == 0 {
-		for i := 0; i < len(Alldatas.Artist); i++ {
-			if Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search {
-				var Artist gpd.ARTIST
-				Artist.Name = Alldatas.Artist[i].Name
-				Artist.Image = Alldatas.Artist[i].Image
-				Artist.Id = Alldatas.Artist[i].Id
-				sdatas.Artist = append(sdatas.Artist, Artist)
-				members = append(members, Artist.Name)
-				cpt++
+		for i := 0; i < (len(Alldatas.Artist)); i++ {
+			for _, jsp := range Alldatas.Location[i].Locations {
+				if jsp == search || Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search && !gp.Isin(Alldatas.Artist[i].Name, members) {
+					var Artist gpd.ARTIST
+					Artist.Name = Alldatas.Artist[i].Name
+					Artist.Image = Alldatas.Artist[i].Image
+					Artist.Id = Alldatas.Artist[i].Id
+					sdatas.Artist = append(sdatas.Artist, Artist)
+					members = append(members, Artist.Name)
+					cpt++
+					fmt.Println("a")
+				}
 			}
 			for _, member := range Alldatas.Artist[i].Members {
 				if member == search && !gp.Isin(member, members) {
@@ -64,14 +67,37 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 					sdatas.Artist = append(sdatas.Artist, Artist)
 					members = append(members, Artist.Name)
 					cpt++
+					fmt.Println("b")
 				}
 			}
 		}
+		//for i := 0; i < len(Alldatas.Artist); i++ {
+		//	if Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search {
+		//		var Artist gpd.ARTIST
+		//		Artist.Name = Alldatas.Artist[i].Name
+		//		Artist.Image = Alldatas.Artist[i].Image
+		//		Artist.Id = Alldatas.Artist[i].Id
+		//		sdatas.Artist = append(sdatas.Artist, Artist)
+		//		members = append(members, Artist.Name)
+		//		cpt++
+		//	}
+		//	for _, member := range Alldatas.Artist[i].Members {
+		//		if member == search && !gp.Isin(member, members) {
+		//			var Artist gpd.ARTIST
+		//			Artist.Name = Alldatas.Artist[i].Name
+		//			Artist.Image = Alldatas.Artist[i].Image
+		//			Artist.Id = Alldatas.Artist[i].Id
+		//			sdatas.Artist = append(sdatas.Artist, Artist)
+		//			members = append(members, Artist.Name)
+		//			cpt++
+		//		}
+		//	}
+		//}
 	}
 
 	if intSearch != 0 {
 		for i := 0; i < len(Alldatas.Artist); i++ {
-			if Alldatas.Artist[i].Creation_date == intSearch {
+			if Alldatas.Artist[i].Creation_date == intSearch && !gp.Isin(Alldatas.Artist[i].Name, members) {
 				var Artist gpd.ARTIST
 				Artist.Name = Alldatas.Artist[i].Name
 				Artist.Image = Alldatas.Artist[i].Image
@@ -79,6 +105,7 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 				sdatas.Artist = append(sdatas.Artist, Artist)
 				members = append(members, Artist.Name)
 				cpt++
+				fmt.Println("c")
 			}
 		}
 	}
@@ -112,36 +139,66 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	intcreation, _ := strconv.Atoi(creation)
 	intalbum, _ := strconv.Atoi(album)
 	var splitalbum []int
+	name := []string{"rien"}
+	fmt.Println(name == nil)
 	for i := 0; i < (len(Alldatas.Artist)); i++ {
 		splitalbumel := strings.Split(Alldatas.Artist[i].First_ablbum, "-")[2]
 		splitalbumstr, _ := strconv.Atoi(splitalbumel)
 		splitalbum = append(splitalbum, splitalbumstr)
 	}
 
-	for i := 0; i < (len(Alldatas.Artist)); i++ {
-		j := 0
-		capi := strings.Split(Alldatas.Location[i].Locations[j], "-")[1]
-		if buttons != "All" && city != "All" {
-			if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-				Donnees.Artist = Displaydata(i, Donnees)
-			}
-			j++
-		} else if buttons == "All" && city != "All" {
-			if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-				Donnees.Artist = Displaydata(i, Donnees)
-			}
-			j++
-		} else if buttons == "All" && city == "All" {
-			if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				Donnees.Artist = Displaydata(i, Donnees)
-			}
-		} else if buttons != "All" && city == "All" {
-			if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-				Donnees.Artist = Displaydata(i, Donnees)
+	for i := 0; i < len(Alldatas.Artist); i++ {
+		for _, jsp := range Alldatas.Location[i].Locations {
+			capi := strings.Split(jsp, "-")[1]
+			fmt.Println(capi)
+			if buttons != "All" && city != "All" {
+				if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
+					Donnees.Artist = Displaydata(i, Donnees)
+					name = append(name, Alldatas.Artist[i].Name)
+				}
+			} else if buttons == "All" && city != "All" {
+				if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
+					Donnees.Artist = Displaydata(i, Donnees)
+					name = append(name, Alldatas.Artist[i].Name)
+				}
+			} else if buttons == "All" && city == "All" {
+				if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
+					Donnees.Artist = Displaydata(i, Donnees)
+					name = append(name, Alldatas.Artist[i].Name)
+				}
+			} else if buttons != "All" && city == "All" {
+				if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
+					Donnees.Artist = Displaydata(i, Donnees)
+					name = append(name, Alldatas.Artist[i].Name)
+				}
 			}
 		}
-
 	}
+
+	//for i := 0; i < (len(Alldatas.Artist)); i++ {
+	//	j := 0
+	//	capi := strings.Split(Alldatas.Location[i].Locations[j], "-")[1]
+	//	fmt.Println(capi)
+	//	if buttons != "All" && city != "All" {
+	//		if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
+	//			Donnees.Artist = Displaydata(i, Donnees)
+	//		}
+	//		j++
+	//	} else if buttons == "All" && city != "All" {
+	//		if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
+	//			Donnees.Artist = Displaydata(i, Donnees)
+	//		}
+	//		j++
+	//	} else if buttons == "All" && city == "All" {
+	//		if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+	//			Donnees.Artist = Displaydata(i, Donnees)
+	//		}
+	//	} else if buttons != "All" && city == "All" {
+	//		if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
+	//			Donnees.Artist = Displaydata(i, Donnees)
+	//		}
+	//	}
+	//}
 
 	Donnees.All = Alldatas.All
 	Donnees.Country = Alldatas.Country

@@ -45,10 +45,13 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 	return Da, Ar, GL, Re
 }
 func Isin(ele string, tab []string) bool {
-
-	for _, element := range tab {
-		if element == ele {
-			return true
+	if tab == nil {
+		return false
+	} else {
+		for _, element := range tab {
+			if element == ele {
+				return true
+			}
 		}
 	}
 	return false
