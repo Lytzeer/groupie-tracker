@@ -16,7 +16,6 @@ func GetAll(d gpd.DATAS) []string {
 
 	for _, artist := range d.Artist {
 		Names = append(Names, artist.Name)
-		Members = append(Members, artist.Members...)
 		FirstAlbum = append(FirstAlbum, artist.First_ablbum)
 		Creation = append(Creation, strconv.Itoa(artist.Creation_date))
 	}
