@@ -13,21 +13,22 @@
     <h1 class="text text-5xl text-center mt-20">Groupi<span class="middle_letter">e-T</span>racker</h1>
     <br>
     <form method="get" action="/search">
-      <div class="wrapper">
-        <input name="input" type="text" list="suggestions" required>
-        <label for="input">
-            <span>
-                Search
-            </span>
-        </label>
-        <datalist id="suggestions">
-          {{ range .All}}
-          <option>{{.}}</option>
-          {{ end }}
-        </optgroup>
-      </datalist>
-    </div>
+       <div class="wrapper2">
+        <div class="search-input border-2 border-mwg rounded-xl mt-6">
+
+          <input type="text" name="input" placeholder="Search" class=" border-2 border-mwg">
+          <div class="autocom-box text">
+            
+          </div>
+          <div class="icon"><i class="fas fa-search"></i></div>
+        </div>
+      </div>
+  
+
+
     </form>
+    <script>const bj = "{{.All}}";</script> 
+    <script src="./static/dist/script.js"></script> 
     <br>
     <br>
     <div id="wrap">
