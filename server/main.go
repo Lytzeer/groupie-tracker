@@ -43,19 +43,16 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	intSearch, _ := strconv.Atoi(search)
 
 	var sdatas gpd.DATAS
-	cpt := 0
 	if intSearch == 0 {
 		for i := 0; i < (len(Alldatas.Artist)); i++ {
 			for _, jsp := range Alldatas.Location[i].Locations {
-				if jsp == search || Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search && !gp.Isin(Alldatas.Artist[i].Name, members) {
+				if (jsp == search || Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search) && !gp.Isin(Alldatas.Artist[i].Name, members) {
 					var Artist gpd.ARTIST
 					Artist.Name = Alldatas.Artist[i].Name
 					Artist.Image = Alldatas.Artist[i].Image
 					Artist.Id = Alldatas.Artist[i].Id
 					sdatas.Artist = append(sdatas.Artist, Artist)
 					members = append(members, Artist.Name)
-					cpt++
-					fmt.Println("a")
 				}
 			}
 			for _, member := range Alldatas.Artist[i].Members {
@@ -66,7 +63,6 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 					Artist.Id = Alldatas.Artist[i].Id
 					sdatas.Artist = append(sdatas.Artist, Artist)
 					members = append(members, Artist.Name)
-					cpt++
 					fmt.Println("b")
 				}
 			}
@@ -82,7 +78,6 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 				Artist.Id = Alldatas.Artist[i].Id
 				sdatas.Artist = append(sdatas.Artist, Artist)
 				members = append(members, Artist.Name)
-				cpt++
 				fmt.Println("c")
 			}
 		}
