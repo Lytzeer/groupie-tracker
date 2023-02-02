@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	gp "groupie"
 	gpd "groupie/datas"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
@@ -187,6 +189,45 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 
 	donnerartist.Date = dat
 
+	var test2 []gpd.FeatureCollection
+
+	for _, loc := range loc.Locations {
+
+		var test gpd.FeatureCollection
+		loca := ""
+		url_loc := ""
+		tiret := false
+		for _, letter := range loc {
+			if string(letter) != "-" && tiret == false {
+				loca += string(letter)
+			} else if string(letter) == "-" {
+				tiret = true
+			}
+		}
+		url_loc = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + loca + ".json?access_token=pk.eyJ1IjoibWF0c3VlbGwiLCJhIjoiY2xkbjNoMTgzMGZseDN1bHgybjgwbmFnOCJ9.qUR-JuwsRM69PeuHEcVo4A"
+
+		data, _ := http.Get(url_loc)
+		responseData, _ := ioutil.ReadAll(data.Body)
+		json.Unmarshal(responseData, &test)
+
+		test2 = append(test2, test)
+	}
+
+	cartes := []string{}
+	carte := "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/"
+
+	for i, l := range test2 {
+		coordonnees1 := strconv.FormatFloat(l.Features[0].Center[0], 'g', 9, 32)
+		coordonnees2 := strconv.FormatFloat(l.Features[0].Center[1], 'g', 9, 32)
+		if i == len(test2)-1 {
+			carte += "pin-l-music+f74e4e(" + coordonnees1 + "," + coordonnees2 + ")" + "/20,0,0/500x500?access_token=pk.eyJ1IjoibWF0c3VlbGwiLCJhIjoiY2xkbjNoMTgzMGZseDN1bHgybjgwbmFnOCJ9.qUR-JuwsRM69PeuHEcVo4A"
+		} else {
+			carte += "pin-l-music+f74e4e(" + coordonnees1 + "," + coordonnees2 + "),"
+		}
+		cartes = append(cartes, carte)
+	}
+
+	donnerartist.Cartes = cartes
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/info.html"))
 	tmpl.Execute(w, donnerartist)

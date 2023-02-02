@@ -20,4 +20,3 @@ type DATAS struct {
 	All       []string
 	Country   []string
 }
-

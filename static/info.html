@@ -33,7 +33,7 @@
             <p class=" text-mwg"><i>First album release date</i></p>
             <p class="text">{{.Artist.First_ablbum}}</p>
         </div>
-        <div class="col-start-2 text" span>
+        <div class="col-start-1 text" span>
             <p class=" text-mwg"><i>Locations & Dates</i></p>
             {{ range $artist := .All}}
                 {{ range $t:= $artist }}
@@ -42,7 +42,16 @@
                 <br />
             {{ end }}
         </div>
+        <div class="col-span-2 flex justify-center">
+            {{range .Cartes}}
+            <div class="w-50 h-50">
+                <img src="{{.}}" alt="">
+            </div>
+            {{end}}
+        </div>
     </div>
+
+
     <footer class="footer"><a href="/static/about.html">[ Matheo LANG <span class="middle_letter">Timothee DURAN</span> Lukas PORTIER ]</a></footer>
 </body>
 </html>
