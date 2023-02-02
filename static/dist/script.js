@@ -12,7 +12,7 @@ for(var i=0; i<bj.length;i++){
     if (bj[i] ===" " || bj[i]=== "["|| bj[i]==="]"){
         suggestions.push(mot)
         mot=""
-    }else if(bj[i]==="-" && !(bj[i-1]<="9")){
+    }else if(bj[i]==="/"){
         mot=mot+" "
     }else{
         mot = mot+ bj[i]

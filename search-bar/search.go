@@ -19,7 +19,7 @@ func GetAll(d gpd.DATAS) []string {
 		nam := ""
 		for _, letter := range artist.Name {
 			if string(letter) == " " {
-				nam += "-"
+				nam += "/"
 			} else {
 				nam += string(letter)
 			}
@@ -32,7 +32,7 @@ func GetAll(d gpd.DATAS) []string {
 			mem := ""
 			for _, letter := range member {
 				if string(letter) == " " {
-					mem += "-"
+					mem += "/"
 				} else {
 					mem += string(letter)
 				}
