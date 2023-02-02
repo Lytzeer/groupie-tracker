@@ -107,15 +107,42 @@ func Displaydata(i int, Donnees gpd.DATAS) []gpd.ARTIST {
 }
 
 func HandleFilter(w http.ResponseWriter, r *http.Request) {
-	buttons := r.FormValue("Member")
+	buttonAll := r.FormValue("MemberAll")
+	fmt.Println(buttonAll)
+	buttons1 := r.FormValue("Member1")
+	buttons2 := r.FormValue("Member2")
+	buttons3 := r.FormValue("Member3")
+	buttons4 := r.FormValue("Member4")
+	buttons5 := r.FormValue("Member5")
+	buttons6 := r.FormValue("Member6")
+	buttons7 := r.FormValue("Member7")
+	buttons8 := r.FormValue("Member8")
 	creation := r.FormValue("creationdate")
 	album := r.FormValue("albumdate")
 	city := r.FormValue("city")
 
 	var Donnees gpd.DATAS
-	intbutton, _ := strconv.Atoi(buttons)
+	intbutton1, _ := strconv.Atoi(buttons1)
+	intbutton2, _ := strconv.Atoi(buttons2)
+	intbutton3, _ := strconv.Atoi(buttons3)
+	intbutton4, _ := strconv.Atoi(buttons4)
+	intbutton5, _ := strconv.Atoi(buttons5)
+	intbutton6, _ := strconv.Atoi(buttons6)
+	intbutton7, _ := strconv.Atoi(buttons7)
+	intbutton8, _ := strconv.Atoi(buttons8)
+
+	var tabbutton []int
+	tabbutton = append(tabbutton, intbutton1)
+	tabbutton = append(tabbutton, intbutton2)
+	tabbutton = append(tabbutton, intbutton3)
+	tabbutton = append(tabbutton, intbutton4)
+	tabbutton = append(tabbutton, intbutton5)
+	tabbutton = append(tabbutton, intbutton6)
+	tabbutton = append(tabbutton, intbutton7)
+	tabbutton = append(tabbutton, intbutton8)
 	intcreation, _ := strconv.Atoi(creation)
 	intalbum, _ := strconv.Atoi(album)
+	fmt.Println(tabbutton)
 	var splitalbum []int
 	name := []string{"rien"}
 	for i := 0; i < (len(Alldatas.Artist)); i++ {
@@ -127,25 +154,33 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(Alldatas.Artist); i++ {
 		for _, jsp := range Alldatas.Location[i].Locations {
 			capi := strings.Split(jsp, "-")[1]
-			if buttons != "All" && city != "All" {
-				if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
-					Donnees.Artist = Displaydata(i, Donnees)
-					name = append(name, Alldatas.Artist[i].Name)
-				}
-			} else if buttons == "All" && city != "All" {
-				if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
-					Donnees.Artist = Displaydata(i, Donnees)
-					name = append(name, Alldatas.Artist[i].Name)
-				}
-			} else if buttons == "All" && city == "All" {
-				if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
-					Donnees.Artist = Displaydata(i, Donnees)
-					name = append(name, Alldatas.Artist[i].Name)
-				}
-			} else if buttons != "All" && city == "All" {
-				if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
-					Donnees.Artist = Displaydata(i, Donnees)
-					name = append(name, Alldatas.Artist[i].Name)
+			for j := 0; j < 8; j++ {
+				if string(buttonAll) != "All" && city != "All" {
+					if j+1 == tabbutton[j] {
+						if len(Alldatas.Artist[i].Members) == tabbutton[j] && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
+							Donnees.Artist = Displaydata(i, Donnees)
+							name = append(name, Alldatas.Artist[i].Name)
+							fmt.Println("hello world")
+						}
+					}
+				} else if buttonAll == "All" && city != "All" {
+					if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
+						Donnees.Artist = Displaydata(i, Donnees)
+						name = append(name, Alldatas.Artist[i].Name)
+						fmt.Println("hello worldAll1")
+					}
+				} else if buttonAll == "All" && city == "All" {
+					if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
+						Donnees.Artist = Displaydata(i, Donnees)
+						name = append(name, Alldatas.Artist[i].Name)
+						fmt.Println("hello worldAll2")
+					}
+				} else if string(buttonAll) != "All" && city == "All" {
+					if len(Alldatas.Artist[i].Members) == tabbutton[j] && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
+						Donnees.Artist = Displaydata(i, Donnees)
+						name = append(name, Alldatas.Artist[i].Name)
+						fmt.Println("hello worldbuttonno")
+					}
 				}
 			}
 		}
