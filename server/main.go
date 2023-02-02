@@ -71,28 +71,6 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-		//for i := 0; i < len(Alldatas.Artist); i++ {
-		//	if Alldatas.Artist[i].Name == search || Alldatas.Artist[i].First_ablbum == search {
-		//		var Artist gpd.ARTIST
-		//		Artist.Name = Alldatas.Artist[i].Name
-		//		Artist.Image = Alldatas.Artist[i].Image
-		//		Artist.Id = Alldatas.Artist[i].Id
-		//		sdatas.Artist = append(sdatas.Artist, Artist)
-		//		members = append(members, Artist.Name)
-		//		cpt++
-		//	}
-		//	for _, member := range Alldatas.Artist[i].Members {
-		//		if member == search && !gp.Isin(member, members) {
-		//			var Artist gpd.ARTIST
-		//			Artist.Name = Alldatas.Artist[i].Name
-		//			Artist.Image = Alldatas.Artist[i].Image
-		//			Artist.Id = Alldatas.Artist[i].Id
-		//			sdatas.Artist = append(sdatas.Artist, Artist)
-		//			members = append(members, Artist.Name)
-		//			cpt++
-		//		}
-		//	}
-		//}
 	}
 
 	if intSearch != 0 {
@@ -114,8 +92,11 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 	sdatas.Country = Alldatas.Country
 
 	var tmpl *template.Template
-	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
-	//http.Redirect(w, r, "/", 302)
+	if len(sdatas.Artist) == 0 {
+		tmpl = template.Must(template.ParseFiles("./static/noresult.html"))
+	} else {
+		tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
+	}
 	tmpl.Execute(w, sdatas)
 	return
 }
@@ -140,7 +121,6 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	intalbum, _ := strconv.Atoi(album)
 	var splitalbum []int
 	name := []string{"rien"}
-	fmt.Println(name == nil)
 	for i := 0; i < (len(Alldatas.Artist)); i++ {
 		splitalbumel := strings.Split(Alldatas.Artist[i].First_ablbum, "-")[2]
 		splitalbumstr, _ := strconv.Atoi(splitalbumel)
@@ -150,7 +130,6 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(Alldatas.Artist); i++ {
 		for _, jsp := range Alldatas.Location[i].Locations {
 			capi := strings.Split(jsp, "-")[1]
-			fmt.Println(capi)
 			if buttons != "All" && city != "All" {
 				if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
 					Donnees.Artist = Displaydata(i, Donnees)
@@ -175,36 +154,15 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	//for i := 0; i < (len(Alldatas.Artist)); i++ {
-	//	j := 0
-	//	capi := strings.Split(Alldatas.Location[i].Locations[j], "-")[1]
-	//	fmt.Println(capi)
-	//	if buttons != "All" && city != "All" {
-	//		if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-	//			Donnees.Artist = Displaydata(i, Donnees)
-	//		}
-	//		j++
-	//	} else if buttons == "All" && city != "All" {
-	//		if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city {
-	//			Donnees.Artist = Displaydata(i, Donnees)
-	//		}
-	//		j++
-	//	} else if buttons == "All" && city == "All" {
-	//		if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-	//			Donnees.Artist = Displaydata(i, Donnees)
-	//		}
-	//	} else if buttons != "All" && city == "All" {
-	//		if len(Alldatas.Artist[i].Members) == intbutton && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum {
-	//			Donnees.Artist = Displaydata(i, Donnees)
-	//		}
-	//	}
-	//}
-
 	Donnees.All = Alldatas.All
 	Donnees.Country = Alldatas.Country
 
 	var tmpl *template.Template
-	tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
+	if len(Donnees.Artist) == 0 {
+		tmpl = template.Must(template.ParseFiles("./static/noresult.html"))
+	} else {
+		tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
+	}
 	tmpl.Execute(w, Donnees)
 	http.Redirect(w, r, "/", 302)
 	return
