@@ -262,7 +262,7 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 		cartes = append(cartes, carte)
 	}
 
-	donnerartist.Cartes = cartes
+	donnerartist.Carte = carte
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/info.html"))
 	tmpl.Execute(w, donnerartist)

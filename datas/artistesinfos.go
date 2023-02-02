@@ -6,5 +6,5 @@ type ArtistInfos struct {
 	Date     interface{}
 	Relation interface{}
 	All      [][]string
-	Cartes   []string
+	Carte    string
 }
