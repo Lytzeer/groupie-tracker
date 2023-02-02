@@ -9,9 +9,11 @@ let webLink;
 var suggestions=[]
 let mot = ""
 for(var i=0; i<bj.length;i++){ 
-    if (bj[i] ==" " || bj[i]== "["|| bj[i]=="]"){
+    if (bj[i] ===" " || bj[i]=== "["|| bj[i]==="]"){
         suggestions.push(mot)
         mot=""
+    }else if(bj[i]==="-"){
+        mot=mot+" "
     }else{
         mot = mot+ bj[i]
     }
