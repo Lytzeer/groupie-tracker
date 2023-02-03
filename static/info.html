@@ -24,23 +24,28 @@
             </div>
         </div>
         <div span>
-            <h3 class=" text-mwg"><i>Members</i></h3>
+            <h3><i class="text-mwg">Members</i></h3>
             {{range .Artist.Members}}
             <ul>{{.}}</ul>
             {{end}}
         </div>
         <div span>
-            <p class=" text-mwg"><i>First album release date</i></p>
+            <p><i class="text-mwg">First album release date</i></p>
             <p>{{.Artist.First_ablbum}}</p>
         </div>
-        <div class="col-start-2 text" span>
-            <p class=" text-mwg"><i>Locations & Dates</i></p>
+        <div class="col-start-1 text" span>
+            <p><i class="text-mwg">Locations & Dates</i></p>
             {{ range $artist := .All}}
                 {{ range $t:= $artist }}
                     <p>{{ $t }}</p>
                 {{ end }}
                 <br />
             {{ end }}
+        </div>
+        <div class="col-span-2 flex justify-center">
+            <div class="w-50 h-50">
+                <img src="{{.Carte}}" alt="">
+            </div>
         </div>
     </div>
     <footer class="footer"><a href="/static/about.html">[ Matheo LANG <span class="text-mwg">Timothee DURAN</span> Lukas PORTIER ]</a></footer>
