@@ -108,38 +108,22 @@ func Displaydata(i int, Donnees gpd.DATAS) []gpd.ARTIST {
 
 func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	buttonAll := r.FormValue("MemberAll")
-	fmt.Println(buttonAll)
-	buttons1 := r.FormValue("Member1")
-	buttons2 := r.FormValue("Member2")
-	buttons3 := r.FormValue("Member3")
-	buttons4 := r.FormValue("Member4")
-	buttons5 := r.FormValue("Member5")
-	buttons6 := r.FormValue("Member6")
-	buttons7 := r.FormValue("Member7")
-	buttons8 := r.FormValue("Member8")
 	creation := r.FormValue("creationdate")
 	album := r.FormValue("albumdate")
 	city := r.FormValue("city")
 
 	var Donnees gpd.DATAS
-	intbutton1, _ := strconv.Atoi(buttons1)
-	intbutton2, _ := strconv.Atoi(buttons2)
-	intbutton3, _ := strconv.Atoi(buttons3)
-	intbutton4, _ := strconv.Atoi(buttons4)
-	intbutton5, _ := strconv.Atoi(buttons5)
-	intbutton6, _ := strconv.Atoi(buttons6)
-	intbutton7, _ := strconv.Atoi(buttons7)
-	intbutton8, _ := strconv.Atoi(buttons8)
+	intbutton1, _ := strconv.Atoi(r.FormValue("Member1"))
+	intbutton2, _ := strconv.Atoi(r.FormValue("Member2"))
+	intbutton3, _ := strconv.Atoi(r.FormValue("Member3"))
+	intbutton4, _ := strconv.Atoi(r.FormValue("Member4"))
+	intbutton5, _ := strconv.Atoi(r.FormValue("Member5"))
+	intbutton6, _ := strconv.Atoi(r.FormValue("Member6"))
+	intbutton7, _ := strconv.Atoi(r.FormValue("Member7"))
+	intbutton8, _ := strconv.Atoi(r.FormValue("Member8"))
 
 	var tabbutton []int
-	tabbutton = append(tabbutton, intbutton1)
-	tabbutton = append(tabbutton, intbutton2)
-	tabbutton = append(tabbutton, intbutton3)
-	tabbutton = append(tabbutton, intbutton4)
-	tabbutton = append(tabbutton, intbutton5)
-	tabbutton = append(tabbutton, intbutton6)
-	tabbutton = append(tabbutton, intbutton7)
-	tabbutton = append(tabbutton, intbutton8)
+	tabbutton = append(tabbutton, intbutton1, intbutton2, intbutton3, intbutton4, intbutton5, intbutton6, intbutton7, intbutton8)
 	intcreation, _ := strconv.Atoi(creation)
 	intalbum, _ := strconv.Atoi(album)
 	fmt.Println(tabbutton)
@@ -150,7 +134,6 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		splitalbumstr, _ := strconv.Atoi(splitalbumel)
 		splitalbum = append(splitalbum, splitalbumstr)
 	}
-
 	for i := 0; i < len(Alldatas.Artist); i++ {
 		for _, jsp := range Alldatas.Location[i].Locations {
 			capi := strings.Split(jsp, "-")[1]
@@ -160,26 +143,22 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 						if len(Alldatas.Artist[i].Members) == tabbutton[j] && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
 							Donnees.Artist = Displaydata(i, Donnees)
 							name = append(name, Alldatas.Artist[i].Name)
-							fmt.Println("hello world")
 						}
 					}
 				} else if buttonAll == "All" && city != "All" {
 					if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
 						Donnees.Artist = Displaydata(i, Donnees)
 						name = append(name, Alldatas.Artist[i].Name)
-						fmt.Println("hello worldAll1")
 					}
 				} else if buttonAll == "All" && city == "All" {
 					if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
 						Donnees.Artist = Displaydata(i, Donnees)
 						name = append(name, Alldatas.Artist[i].Name)
-						fmt.Println("hello worldAll2")
 					}
 				} else if string(buttonAll) != "All" && city == "All" {
 					if len(Alldatas.Artist[i].Members) == tabbutton[j] && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && !gp.Isin(Alldatas.Artist[i].Name, name) {
 						Donnees.Artist = Displaydata(i, Donnees)
 						name = append(name, Alldatas.Artist[i].Name)
-						fmt.Println("hello worldbuttonno")
 					}
 				}
 			}
@@ -196,7 +175,6 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 		tmpl = template.Must(template.ParseFiles("./static/artistes.html"))
 	}
 	tmpl.Execute(w, Donnees)
-	http.Redirect(w, r, "/", 302)
 	return
 }
 
