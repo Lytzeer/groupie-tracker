@@ -8,6 +8,7 @@
 
 *{
     font-family: 'GhostClan', sans-serif;
+    color: #E1E1E1;
 }
 
 body{
@@ -17,40 +18,24 @@ body{
     flex-direction: column;
 }
 
-h1{
-    color: #E1E1E1;
-}
-
-.text{
-    color: #E1E1E1;
-}
-
 a:link{
-    color: #E1E1E1;
     background-color: transparent;
     text-decoration: none;
 }
 
 a:visited{
-    color: #E1E1E1;
     background-color: transparent;
     text-decoration: none;
 }
 
 a:hover{
-    color: #E1E1E1;
     background-color: transparent;
     text-decoration: none;
 }
 
 a:active{
-    color: #E1E1E1;
     background-color: transparent;
     text-decoration: none;
-}
-
-.middle_letter{
-    color: #74BC2A;
 }
 
 .image{
@@ -60,14 +45,12 @@ a:active{
 }
 
 .footer{
-    color: #E1E1E1;
     position:static;
     left: 0;
     bottom: 0;
     right: 0;
     padding: 1rem;
     text-align: center;
-    font-family: 'GhostClan',sans-serif;
     margin-top: auto;
 }
 
@@ -128,7 +111,6 @@ a:active{
   #wrap input {
     margin-bottom: 10px;
     margin-top: 10px;
-    font-family: "GhostClan";
     color: #74BC2A;
     font-size: small;
   }

@@ -11,10 +11,10 @@
 </head>
 
 <body>
-    <h1 class="text-base mt-1 sticky"><a href="/">Groupi<span class="middle_letter">e-T</span>racker™</a></h1>
-    <div class="text text-center text-4xl mt-12">Info<span class="middle_letter">rmat</span>ions</div>
+    <h1 class="text-base mt-1 sticky"><a href="/">Groupi<span class="text-mwg">e-T</span>racker™</a></h1>
+    <div class="text-center text-4xl mt-12">Info<span class="text-mwg">rmat</span>ions</div>
     <div class="text-center object-center grid grid-cols-3 grid-rows-2 gap-0 justify-center items-center">
-        <div class="text">
+        <div>
             {{.Artist.Name}}
             <div class=" text-mwg">
                 ({{.Artist.Creation_date}})
@@ -26,12 +26,12 @@
         <div span>
             <h3 class=" text-mwg"><i>Members</i></h3>
             {{range .Artist.Members}}
-            <ul class="text">{{.}}</ul>
+            <ul>{{.}}</ul>
             {{end}}
         </div>
         <div span>
             <p class=" text-mwg"><i>First album release date</i></p>
-            <p class="text">{{.Artist.First_ablbum}}</p>
+            <p>{{.Artist.First_ablbum}}</p>
         </div>
         <div class="col-start-2 text" span>
             <p class=" text-mwg"><i>Locations & Dates</i></p>
@@ -43,6 +43,6 @@
             {{ end }}
         </div>
     </div>
-    <footer class="footer"><a href="/static/about.html">[ Matheo LANG <span class="middle_letter">Timothee DURAN</span> Lukas PORTIER ]</a></footer>
+    <footer class="footer"><a href="/static/about.html">[ Matheo LANG <span class="text-mwg">Timothee DURAN</span> Lukas PORTIER ]</a></footer>
 </body>
 </html>
