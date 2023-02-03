@@ -4,24 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js">
+    </script>
     <link href="/static/dist/style.css" rel="stylesheet" />
     <link rel="shortcut icon" href="/static/pics/fav_icon.png" type="image/png">
     <title>Artistes</title>
 </head>
 <body>
-    <h1 class="text-base mt-1"><a href="/">Groupi<span class="text-mwg">e-T</span>racker™</a></h1>
-    <h1 class="text-5xl text-center mt-20">Groupi<span class="text-mwg">e-T</span>racker</h1>
+    <h1 class="logo text-base mt-1"><a href="/">Groupi<span class="middle_letter">e-T</span>racker™</a></h1>
+    <h1 class="text text-5xl text-center mt-20">Groupi<span class="middle_letter">e-T</span>racker</h1>
     <br>
     <form method="get" action="/search">
+       <!-- <div class="wrapper2"> -->
         <div class="search-input rounded-xl mt-6">
-          <div class="flex justify-center flex-col">
-            <input type="text" name="input" placeholder="Search" class="border-2 border-mwg bg-transparent rounded-xl">
-            <div class="autocom-box">
+          <div class="flex justify-center text flex-col">
+            <input type="text" name="input" placeholder="Search" class=" border-2 border-mwg bg-transparent rounded-xl">
+            <div class="autocom-box text">
           </div>
-
+            
           </div>
           <div class="icon"><i class="fas fa-search"></i></div>
         </div>
+      <!-- </div> -->
+  
+
+
     </form>
     <script>const bj = "{{.All}}";</script> 
     <script src="./static/dist/script.js"></script> 
@@ -36,42 +43,43 @@
                 <label for="lang">Number of Members</label>
                 <div>
                   <div>
-                    <input type="checkbox" id="contactChoiceAll" name="MemberAll" value="All" checked>
+                    <input type="radio" id="contactChoiceAll"  name="MemberAll" value="All" checked>
                     <label for="huey">All</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice1" name="Member1" value="1" >
+                    <input type="checkbox" id="contactChoice1" class="checkboxes" name="Member1" value="1" >
                     <label for="contactChoice1">1</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice2" name="Member2" value="2" >
+                    <input type="checkbox" id="contactChoice2" class="checkboxes" name="Member2" value="2" >
                     <label for="contactChoice2">2</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice3" name="Member3" value="3">
+                    <input type="checkbox" id="contactChoice3" class="checkboxes" name="Member3" value="3">
                     <label for="contactChoice3">3</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice4" name="Member4" value="4">
+                    <input type="checkbox" id="contactChoice4" class="checkboxes" name="Member4" value="4">
                     <label for="contactChoice4">4</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice5" name="Member5" value="5">
+                    <input type="checkbox" id="contactChoice5" class="checkboxes" name="Member5" value="5">
                     <label for="contactChoice5">5</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice6" name="Member6" value="6">
+                    <input type="checkbox" id="contactChoice6" class="checkboxes" name="Member6" value="6">
                     <label for="contactChoice6">6</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice7" name="Member7" value="7">
+                    <input type="checkbox" id="contactChoice7" class="checkboxes" name="Member7" value="7">
                     <label for="contactChoice7">7</label>
                   </div>
                   <div>
-                    <input type="checkbox" id="contactChoice8" name="Member8" value="8">
+                    <input type="checkbox" id="contactChoice8" class="checkboxes" name="Member8" value="8">
                     <label for="contactChoice8">8</label>
                   </div>
                 </div>
+                <script src="./static/dist/button.js"></script>
               </li>
               <li><div>
                 <label for="volume">Year of creation</label>
@@ -104,19 +112,19 @@
           </li>
         </ul>
       </div>
-    <p class="text-center text-4xl mt-12 mb-3">Gr<span class="text-mwg">ou</span>ps</p>
+    <p class="text text-center text-4xl mt-12 mb-3">Gr<span class="middle_letter">ou</span>ps</p>
     <form method="get" action="/infos">
     <div class="grid grid-cols-7 gap-8 ml-1 mr-1">
         {{range .Artist }}
         <div class="border-2 rounded-2xl border-mwg">
             <button type="submit" value="{{.Id}}" name="id">
                 <img src="{{.Image}}" class="rounded-2xl w-60 h-60">
-                <p class="text-center text-2xl">{{.Name}}</p>
+                <p class="text text-center text-2xl">{{.Name}}</p>
             </button>
         </div>
         {{end}}
     </div>
     </form>
-    <footer class="footer"><a href="/static/about.html">[ Matheo LANG  <span class="text-mwg">Timothee DURAN</span>  Lukas PORTIER ]</a></footer>
+    <footer class="footer"><a href="/static/about.html">[ Matheo LANG  <span class="middle_letter">Timothee DURAN</span>  Lukas PORTIER ]</a></footer>
 </body>
 </html>
