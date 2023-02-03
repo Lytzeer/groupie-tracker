@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	gp "groupie"
+	gp "groupie/api"
 	gpd "groupie/datas"
 	"html/template"
 	"io/ioutil"
