@@ -1,7 +1,7 @@
 <div align="center">
     
 
-  <h1 align="center">HangMan Web project build with HTML CSS and Golang</h1>
+  <h1 align="center">Groupie Tracker project build with HTML CSS and Golang</h1>
 
   <p align="center">
     <br />
