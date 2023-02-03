@@ -65,7 +65,6 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 					Artist.Id = Alldatas.Artist[i].Id
 					sdatas.Artist = append(sdatas.Artist, Artist)
 					members = append(members, Artist.Name)
-					fmt.Println("b")
 				}
 			}
 		}
@@ -80,7 +79,6 @@ func HandleSearch(w http.ResponseWriter, r *http.Request) {
 				Artist.Id = Alldatas.Artist[i].Id
 				sdatas.Artist = append(sdatas.Artist, Artist)
 				members = append(members, Artist.Name)
-				fmt.Println("c")
 			}
 		}
 	}
@@ -107,12 +105,15 @@ func Displaydata(i int, Donnees gpd.DATAS) []gpd.ARTIST {
 }
 
 func HandleFilter(w http.ResponseWriter, r *http.Request) {
+	var Donnees gpd.DATAS
+	var tabbutton []int
+	var splitalbum []int
+
 	buttonAll := r.FormValue("MemberAll")
 	creation := r.FormValue("creationdate")
 	album := r.FormValue("albumdate")
 	city := r.FormValue("city")
 
-	var Donnees gpd.DATAS
 	intbutton1, _ := strconv.Atoi(r.FormValue("Member1"))
 	intbutton2, _ := strconv.Atoi(r.FormValue("Member2"))
 	intbutton3, _ := strconv.Atoi(r.FormValue("Member3"))
@@ -122,13 +123,11 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	intbutton7, _ := strconv.Atoi(r.FormValue("Member7"))
 	intbutton8, _ := strconv.Atoi(r.FormValue("Member8"))
 
-	var tabbutton []int
 	tabbutton = append(tabbutton, intbutton1, intbutton2, intbutton3, intbutton4, intbutton5, intbutton6, intbutton7, intbutton8)
 	intcreation, _ := strconv.Atoi(creation)
 	intalbum, _ := strconv.Atoi(album)
-	fmt.Println(tabbutton)
-	var splitalbum []int
-	name := []string{"rien"}
+
+	name := []string{}
 	for i := 0; i < (len(Alldatas.Artist)); i++ {
 		splitalbumel := strings.Split(Alldatas.Artist[i].First_ablbum, "-")[2]
 		splitalbumstr, _ := strconv.Atoi(splitalbumel)
@@ -136,17 +135,17 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 	}
 	for i := 0; i < len(Alldatas.Artist); i++ {
 		for _, jsp := range Alldatas.Location[i].Locations {
-			capi := strings.Split(jsp, "-")[1]
+			countries := strings.Split(jsp, "-")[1]
 			for j := 0; j < 8; j++ {
 				if string(buttonAll) != "All" && city != "All" {
 					if j+1 == tabbutton[j] {
-						if len(Alldatas.Artist[i].Members) == tabbutton[j] && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
+						if len(Alldatas.Artist[i].Members) == tabbutton[j] && Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && countries == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
 							Donnees.Artist = Displaydata(i, Donnees)
 							name = append(name, Alldatas.Artist[i].Name)
 						}
 					}
 				} else if buttonAll == "All" && city != "All" {
-					if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && capi == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
+					if Alldatas.Artist[i].Creation_date >= intcreation && int(splitalbum[i]) >= intalbum && countries == city && !gp.Isin(Alldatas.Artist[i].Name, name) {
 						Donnees.Artist = Displaydata(i, Donnees)
 						name = append(name, Alldatas.Artist[i].Name)
 					}
@@ -180,19 +179,15 @@ func HandleFilter(w http.ResponseWriter, r *http.Request) {
 
 func HandleInfos(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
-
 	Iid, _ := strconv.Atoi(id)
-
 	Iid = Iid - 1
 
 	loc := Alldatas.Location[Iid]
-	art := Alldatas.Artist[Iid]
 	dat := Alldatas.Date[Iid]
-	a := Alldatas.Locs[Iid]
 	donnerartist := gpd.ArtistInfos{}
-	donnerartist.Artist = art
-	donnerartist.Location = loc
-	donnerartist.All = a
+	donnerartist.Artist = Alldatas.Artist[Iid]
+	donnerartist.Location = Alldatas.Location[Iid]
+	donnerartist.All = Alldatas.Locs[Iid]
 
 	for i := 0; i < len(dat.Dates); i++ {
 		if string(dat.Dates[i][0]) == "*" {
@@ -202,7 +197,7 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 
 	donnerartist.Date = dat
 
-	var test2 []gpd.FeatureCollection
+	var Structcoordonnees []gpd.FeatureCollection
 
 	for _, loc := range loc.Locations {
 
@@ -223,24 +218,21 @@ func HandleInfos(w http.ResponseWriter, r *http.Request) {
 		responseData, _ := ioutil.ReadAll(data.Body)
 		json.Unmarshal(responseData, &test)
 
-		test2 = append(test2, test)
+		Structcoordonnees = append(Structcoordonnees, test)
 	}
 
-	cartes := []string{}
-	carte := "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/"
+	donnerartist.Carte = "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/"
 
-	for i, l := range test2 {
+	for i, l := range Structcoordonnees {
 		coordonnees1 := strconv.FormatFloat(l.Features[0].Center[0], 'g', 9, 32)
 		coordonnees2 := strconv.FormatFloat(l.Features[0].Center[1], 'g', 9, 32)
-		if i == len(test2)-1 {
-			carte += "pin-l-music+f74e4e(" + coordonnees1 + "," + coordonnees2 + ")" + "/20,0,0/500x500?access_token=pk.eyJ1IjoibWF0c3VlbGwiLCJhIjoiY2xkbjNoMTgzMGZseDN1bHgybjgwbmFnOCJ9.qUR-JuwsRM69PeuHEcVo4A"
+		if i == len(Structcoordonnees)-1 {
+			donnerartist.Carte += "pin-l-music+f74e4e(" + coordonnees1 + "," + coordonnees2 + ")" + "/20,0,0/500x500?access_token=pk.eyJ1IjoibWF0c3VlbGwiLCJhIjoiY2xkbjNoMTgzMGZseDN1bHgybjgwbmFnOCJ9.qUR-JuwsRM69PeuHEcVo4A"
 		} else {
-			carte += "pin-l-music+f74e4e(" + coordonnees1 + "," + coordonnees2 + "),"
+			donnerartist.Carte += "pin-l-music+f74e4e(" + coordonnees1 + "," + coordonnees2 + "),"
 		}
-		cartes = append(cartes, carte)
 	}
 
-	donnerartist.Carte = carte
 	var tmpl *template.Template
 	tmpl = template.Must(template.ParseFiles("./static/info.html"))
 	tmpl.Execute(w, donnerartist)
