@@ -117,32 +117,7 @@ a:active{
   .navbar li ul li a:hover {
     background-color: pink;
   }
-  /*
-  #wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    height: 30vh; 
-    background-color: #f1f1f1;
-  }
-  
-  /*sep*/
-  /*
-  #wrap input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-  }
-  
-  #wrap label  {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-  }
-  */
+
   #wrap label {
     margin-bottom: 10px;
     margin-top: 10px;
@@ -162,66 +137,6 @@ a:active{
     margin-bottom: 10px;
     margin-top: 10px;
   }
-  
-  .wrapper2{
-    width:50%;
-    height:50px;
-    position: absolute;
-    right: 0;
-    transform: translate(-50%, -50%);
-    overflow: hidden;
-  }
-  .wrapper2 input{
-    width:100%;
-    height:100%;
-    color:#E1E1E1;
-    padding-top:10px;
-    border:none;
-    font-size: 16px;
-    font-family: "GhostClan";
-    outline: none;
-    background-color: transparent;
-  }
-  .wrapper2 label{
-    position: absolute;
-    left:0px;
-    bottom: 0px;
-    width:100%;
-    height:100%;
-    pointer-events: none;
-    border-bottom: 3px solid #E1E1E1;
-  }
-  .wrapper2 label:after{
-    content:'';
-    width:100%;
-    height:100%;
-    left:0px;
-    bottom:-3px;
-    border-bottom: 3px solid #74BC2A;
-    position: absolute;
-    transform: translateX(-100%);
-    transition: all .6s ease;
-  }
-  .wrapper2 label span{
-    position: absolute;
-    bottom:5px;
-    left:0px;
-    transition: all .6s ease;
-    color: #E1E1E1;
-  }
-  .wrapper2 input:focus + label span,
-  .wrapper2 input:valid + label span{
-    transform: translateY(-20px);
-    transition: all .6s ease;
-    color:#74BC2A;
-  }
-  .wrapper2 input:focus + label:after,
-  .wrapper2 input:valid + label:after{
-    transform: translateX(0%);
-    transition: all .6s ease;
-  }
-  
-  /*sep*/
 
 .search-box{
   border: solid;
