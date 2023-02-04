@@ -3,6 +3,7 @@ package groupie
 import (
 	"encoding/json"
 	gpd "groupie/datas"
+	gpf "groupie/func"
 	gps "groupie/search-bar"
 	"io/ioutil"
 	"net/http"
@@ -44,18 +45,7 @@ func GetDatas() (gpd.DATE, []gpd.ARTIST, gpd.GetLocation, gpd.RELATION) {
 
 	return Da, Ar, GL, Re
 }
-func Isin(ele string, tab []string) bool {
-	if tab == nil {
-		return false
-	} else {
-		for _, element := range tab {
-			if element == ele {
-				return true
-			}
-		}
-	}
-	return false
-}
+
 func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATION) gpd.DATAS {
 
 	Donnees.Date = d.Index
@@ -98,7 +88,7 @@ func SetData(d gpd.DATE, a []gpd.ARTIST, l gpd.GetLocation, relation gpd.RELATIO
 	for i := 0; i < (len(Donnees.Location)); i++ {
 		for j := 0; j < (len(Donnees.Location[i].Locations)); j++ {
 			capi = strings.Split(Donnees.Location[i].Locations[j], "-")[1]
-			if !Isin(capi, country) {
+			if !gpf.Isin(capi, country) {
 				country = append(country, capi)
 			}
 
