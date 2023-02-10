@@ -626,8 +626,12 @@ video {
 }
 
 .border-mwg {
+  border-color: white power;
+}
+
+.border-search-b {
   --tw-border-opacity: 1;
-  border-color: rgb(116 188 42 / var(--tw-border-opacity));
+  border-color: rgb(109 7 26 / var(--tw-border-opacity));
 }
 
 .bg-transparent {
@@ -669,8 +673,12 @@ video {
 }
 
 .text-mwg {
+  color: white power;
+}
+
+.text-title {
   --tw-text-opacity: 1;
-  color: rgb(116 188 42 / var(--tw-text-opacity));
+  color: rgb(255 0 0 / var(--tw-text-opacity));
 }
 
 .filter {
@@ -771,7 +779,7 @@ a:active{
 }
 
 .navbar li ul li {
-  background-color: #74BC2A;
+  background-color: #770217;
 }
 
 .navbar li ul li a {
@@ -795,7 +803,7 @@ a:active{
 #wrap input {
   margin-bottom: 10px;
   margin-top: 10px;
-  color: #74BC2A;
+  color: #6d071a;
   font-size: small;
 }
 
@@ -812,101 +820,3 @@ a:active{
   color: black;
   font-size: medium;
 }
-
-
-
-
-
-@media screen and (max-width:1536px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
-  .h-60 {
-    height: auto;
-  }
-}
-
-@media screen and (max-width:1280px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  .h-60 {
-    height: auto;
-  }
-
-  .w-60{
-    height: auto;
-  }
-}
-
-@media screen and (max-width:1024px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media screen and (max-width:768px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .grid-cols-3{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
- @media screen and (max-width:640px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .h-60 {
-    height: auto;
-  }
-
-  .w-60{
-    height: auto;
-  }
-} 
-
-@media screen and (max-width:480px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .h-60{
-    height: auto;
-  }
-
-  .w-60{
-    height: auto;
-  }
-}
-
-@media screen and (max-width:356px) {
-  .grid-cols-7 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .grid-cols-3{
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .h-60 {
-    height: auto;
-  }
-
-  .w-60{
-    height: auto;
-  }
-
-  .navbar li {
-    width: 100%;
-  }
-
-  .navbar li ul {
-    width: 100%;
-  }
-} 

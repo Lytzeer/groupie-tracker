@@ -4,8 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "mwg": "#74BC2A",
-        "mww": "#E1E1E1",
+        "mwg": "white power",
+        //"mww": "red",
+        "title":"red",
+        "search-b":"#6d071a",
       },
     },
   },
